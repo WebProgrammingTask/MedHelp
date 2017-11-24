@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MedHelp.ScopeMiddleware;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -23,6 +26,26 @@ namespace MedHelp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string domain = $"https://{Configuration["Auth0:Domain"]}/";
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = domain;
+                options.Audience = Configuration["Auth0:ApiIdentifier"];
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("read:templates", policy => policy.Requirements.Add(new HasScopeRequirement("read:templates", domain)));
+                options.AddPolicy("write:templates", policy => policy.Requirements.Add(new HasScopeRequirement("write:templates", domain)));
+            });
+
+            services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
+
             services.AddMvc();
         }
 
@@ -43,6 +66,7 @@ namespace MedHelp
             }
 
             app.UseStaticFiles();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
