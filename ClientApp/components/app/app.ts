@@ -4,7 +4,7 @@ import AuthService from '../../auth/AuthService';
 
 
 
-const auth = new AuthService()
+const auth = new AuthService(window.location.hostname, window.location.port, window.location.protocol)
 
 var { login, logout, authenticated, authNotifier } = auth
 

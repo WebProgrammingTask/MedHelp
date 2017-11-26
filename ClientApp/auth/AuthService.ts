@@ -1,26 +1,30 @@
-import auth0 from 'auth0-js'
+import auth0, { WebAuth } from 'auth0-js'
 import router from '../router/'
 import EventEmitter from 'EventEmitter'
 
 export default class AuthService {
     authenticated = this.isAuthenticated()
     authNotifier = new EventEmitter()
-
-    constructor() {
+    auth0: WebAuth
+    constructor(hostname:string, port:string, protocol:string) {
         this.login = this.login.bind(this);
         this.setSession = this.setSession.bind(this)
         this.logout = this.logout.bind(this)
         this.isAuthenticated = this.isAuthenticated.bind(this)
+        var stringBuild = protocol + "//" + hostname;
+        if (port !== "")
+          stringBuild += ':' + port
+        stringBuild += '/callback'
+        this.auth0 = new auth0.WebAuth({
+          domain: 'dotnextrussia.eu.auth0.com',
+          clientID: 'g7saZcm47evyY3kWWP26ZxifDpxycl9h',
+          redirectUri: stringBuild,
+          audience: 'http://medhelp20171124063439.azurewebsites.net/',
+          responseType: 'token id_token',
+          scope: 'openid profile read:templates'
+      });
     }
-
-    auth0 = new auth0.WebAuth({
-        domain: 'dotnextrussia.eu.auth0.com',
-        clientID: 'g7saZcm47evyY3kWWP26ZxifDpxycl9h',
-        redirectUri: 'http://localhost:5000/callback',
-        audience: 'http://medhelp20171124063439.azurewebsites.net/',
-        responseType: 'token id_token',
-        scope: 'openid profile read:templates'
-    });
+    
 
 
 
