@@ -1,10 +1,29 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
+import AuthService from '../../auth/AuthService';
 
-@Component({
+
+
+const auth = new AuthService()
+
+var { login, logout, authenticated, authNotifier } = auth
+
+export default Vue.extend({
+    name: 'app',
     components: {
         MenuComponent: require('../navmenu/navmenu.vue.html')
+    },
+    data() {
+        authNotifier.on('authChange', (authState:any) => {
+            authenticated = authState.authenticated
+        })
+        return {
+            auth,
+            authenticated
+        }
+    },
+    methods: {
+        login,
+        logout
     }
 })
-export default class AppComponent extends Vue {
-}

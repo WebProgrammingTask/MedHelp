@@ -23,5 +23,11 @@
     "vue-template-compiler": "^2.5.8",
     "webpack": "^2.2.0",
     "webpack-hot-middleware": "^2.20.0"
+  },
+  "dependencies": {
+    "@types/auth0-js": "^8.10.2",
+    "EventEmitter": "^1.0.0",
+    "auth0-js": "^8.11.3",
+    "axios": "^0.17.1"
   }
 }
