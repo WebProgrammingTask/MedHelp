@@ -10,9 +10,9 @@ var { login, logout, authenticated, authNotifier } = auth
 
 export default Vue.extend({
     name: 'app',
-    // components: {
-    //     MenuComponent: require('../navmenu/navmenu.vue.html')
-    // },
+    components: {
+        MenuComponent: require('../navmenu/navmenu.vue.html')
+    },
     data() {
         authNotifier.on('authChange', (authState:any) => {
             authenticated = authState.authenticated
