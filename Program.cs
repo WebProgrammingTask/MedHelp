@@ -17,9 +17,18 @@ namespace MedHelp
             BuildWebHost(args).Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+        public static IWebHost BuildWebHost(string[] args)
+        {
+#if DEBUG
+            return WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+                .UseUrls("http://localhost:5000/")
+                .Build();
+#else
+            return WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .Build();
+#endif
+        }
     }
 }
