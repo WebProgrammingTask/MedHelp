@@ -1,6 +1,7 @@
 import auth0, { WebAuth } from 'auth0-js'
-import router from '../router/'
 import EventEmitter from 'EventEmitter'
+import Router from '../router/router'
+
 
 export default class AuthService {
     authenticated = this.isAuthenticated()
@@ -36,13 +37,12 @@ export default class AuthService {
         this.auth0.parseHash((err, authResult) => {
           if (authResult && authResult.accessToken && authResult.idToken) {
             this.setSession(authResult)
-            router.replace('home')
+            Router.push('/home')
           } else if (err) {
-            router.replace('home')
+            Router.push('/home')
             console.log(err)
             alert(`Error: ${err.error}. Check the console for further details.`)
           }
-          location.reload()          
         })
       }
 
@@ -65,8 +65,7 @@ export default class AuthService {
         //this.userProfile = null
         this.authNotifier.emit('authChange', false)
         // navigate to the home route
-        router.replace('home')
-        location.reload()
+        Router.replace('/home')
       }
 
       isAuthenticated () {

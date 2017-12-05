@@ -7,26 +7,6 @@ const auth = new AuthService(window.location.hostname, window.location.port, win
 
 var { login, logout, authenticated, authNotifier } = auth
 
-// export default Vue.extend({
-//     name: 'app',
-//     components: {
-//         MenuComponent: require('../navmenu/navmenu.vue.html')
-//     },
-//     data() {
-//         authNotifier.on('authChange', (authState:any) => {
-//             authenticated = authState.authenticated
-//         })
-//         return {
-//             auth,
-//             authenticated
-//         }
-//     },
-//     methods: {
-//         login,
-//         logout
-//     }
-// })
-
 @Component({
     name: 'app',
     components: {
