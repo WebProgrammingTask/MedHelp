@@ -23,9 +23,6 @@
                 </div>
             </div>
             <div class="py-5 bg-light text-dark">
-                <button class="btn btn-primary btn-margin" v-if="authenticated" @click="auth.logout()">
-                    Выйти
-                </button>
                 <div class="container" v-if="templates.length">
                     <div class="row">
                         <div class="col-md-4 my-3" v-for="template in templates">
@@ -42,7 +39,9 @@
                         </div>
                     </div>
                 </div>
-
+                <button align="center" class="btn btn-primary btn-margin" @click="auth.logout()">
+                    Выйти
+                </button>
             </div>
         </div>
     </div>
@@ -56,9 +55,5 @@
 </template>
 
 
-<style>
-    a {
-        cursor: pointer;
-    }
-</style>
+
 <script src="./home.ts" />
