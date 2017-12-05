@@ -20,7 +20,7 @@ export default class Home extends Vue {
       .catch(e => {
         alert(e);
       });
-      
+
     this.service.get('lastopeneddocuments/lastopeneddocuments')
     .then(response => {
       this.lastOpenedDocs = response.data;
