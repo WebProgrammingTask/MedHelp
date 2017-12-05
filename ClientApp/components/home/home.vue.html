@@ -18,79 +18,40 @@
           </div>
     </div> -->
     <div>
-        <div class="p-5 gradient-overlay bg-secondary">
+        <div class="p-5 gradient-overlay bg-secondary" v-if="lastOpenedDocs.length">
             <div class="container">
                 <div class="row">
-                    <div class="p-3 align-self-center col-md-4">
+                    <div class="p-3 align-self-center col-md-4" v-for="lastOpenedDoc in lastOpenedDocs">
                         <div class="card">
                             <div class="card-block p-5">
                                 <h1>
-                                    <span style="font-size: 30px;">Справка на анализ спермы</span>
+                                    <span style="font-size: 30px;">{{lastOpenedDoc.patient}}</span>
                                 </h1>
-                                <h3>Иванов Иван</h3>
+                                <h3>{{lastOpenedDoc.template.name}}</h3>
                                 <hr>
-                                <p>Проверить на спид не забудьте</p>
+                                <p>{{lastOpenedDoc.lastOpenedTime}}</p>
                                 <a href="#" class="btn btn-dark">Продолжить работу
                                     <br> </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-3 align-self-center col-md-4">
-                        <div class="card">
-                            <div class="card-block p-5">
-                                <h1>
-                                    <span style="font-size: 30px;">Донор мозга&nbsp;</span>
-                                </h1>
-                                <h3>Premium</h3>
-                                <hr>
-                                <p>Use all the features and get the maximum out of the app</p>
-                                <a href="#" class="btn btn-dark">Subscribe</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-3 align-self-center col-md-4">
-                        <div class="card">
-                            <div class="card-block p-5">
-                                <h1>
-                                    <sup>$</sup> 135 </h1>
-                                <h3>Pro</h3>
-                                <hr>
-                                <p>Get the whole pack and forget about everything else</p>
-                                <a href="#" class="btn btn-dark">Subscribe</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="py-5 bg-light text-dark">
+        <div class="py-5 bg-light text-dark" v-if="templates.length">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4 my-3">
+                    <div class="col-md-4 my-3" v-for="template in templates">
                         <div class="card">
-                            <div class="card-header bg-primary text-white text-center">Features #1</div>
-                            <img class="img-fluid" src="https://pingendo.github.io/templates/sections/assets/features_mac.jpg" alt="Card image">
+                            <div class="card-header bg-primary text-white text-center">{{template.name}}</div>
+                            <img class="img-fluid" :src="template.imagePath" alt="Card image">
                             <div class="card-body">
-                                <h6 class="card-subtitle text-muted">Support card subtitle</h6>
-                                <p class="card-text p-y-1">Some quick example text to build on the card title .</p>
-                                <a href="#" class="card-link">link</a>
-                                <a href="#" class="card-link">Second link</a>
+                                <!-- <h6 class="card-subtitle text-muted">Support card subtitle</h6> -->
+                                <p class="card-text p-y-1">{{template.description}}</p>
+                                <a href="#" class="card-link">Начать работу</a>
+                                <!-- <a href="#" class="card-link">Second link</a> -->
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4 my-3">
-                        <img class="img-fluid d-block mb-4" src="https://pingendo.github.io/templates/sections/assets/features_strawberry.jpg">
-                        <h5>
-                            <b>Features#2: strawberries</b>
-                        </h5>
-                        <p class="mt-1">Integrate it in your toolset. Use Pingendo alongside your favourite code editor, Git client, etc.</p>
-                    </div>
-                    <div class="col-md-4 my-3">
-                        <img class="img-fluid d-block mb-4 img-thumbnail" src="https://pingendo.github.io/templates/sections/assets/features_bluetable.jpg">
-                        <h5>
-                            <b>Features#3: blue palette</b>
-                        </h5>
-                        <p class="mt-1">Just quality vanilla Bootstrap 4 code. No messy dependencies. For nerds peace of mind.</p>
                     </div>
                 </div>
             </div>
