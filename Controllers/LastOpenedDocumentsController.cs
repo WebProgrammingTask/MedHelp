@@ -33,7 +33,7 @@ namespace MedHelp.Controllers
 
         private static readonly string[] Patients =
         {
-            "Наглая бабка у которой болит мизинец на ноге",
+            "Наглая бабка, у которой болит мизинец на ноге",
             "Дедуля",
             "Ребенок, у которого 36.9"
         };

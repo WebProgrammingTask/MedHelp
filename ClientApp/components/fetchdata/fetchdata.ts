@@ -30,8 +30,5 @@ export default class FetchDataComponent extends Vue {
             .catch(e => {
                 alert(e)
             })
-
-        // fetch('api/SampleData/WeatherForecasts')
-
     }
 }
