@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 import { Template } from '../../models/Template';
-import axios from 'axios';
+import { ApiService } from '../../models/ApiService'
 import { LastOpenedDocument } from '../../models/LastOpenedDocument';
 import AuthService from '../../auth/AuthService';
 
@@ -16,13 +16,12 @@ export default class Home extends Vue {
 
   templates: Template[] = [];
   lastOpenedDocs: LastOpenedDocument[] = [];
-  service = axios.create({ baseURL: 'api/' });
 
 
 
 
   mounted() {
-    this.service.get('templates/gettemplates')
+    ApiService.get('templates/gettemplates')
       .then(response => {
         this.templates = response.data;
       })
@@ -30,7 +29,7 @@ export default class Home extends Vue {
         alert(e);
       });
 
-    this.service.get('lastopeneddocuments/lastopeneddocuments')
+    ApiService.get('lastopeneddocuments/lastopeneddocuments')
       .then(response => {
         this.lastOpenedDocs = response.data;
         //TODO: lastOpenedDoc.lastOpenedTime -> to date (now string)
