@@ -1,10 +1,10 @@
 import auth0, { WebAuth } from 'auth0-js'
-import router from '../router/'
-import EventEmitter from 'EventEmitter'
+import {EventEmitter} from '../models/EventEmmiter'
+import Router from '../router/router'
+
 
 export default class AuthService {
     authenticated = this.isAuthenticated()
-    authNotifier = new EventEmitter()
     auth0: WebAuth
     constructor(hostname:string, port:string, protocol:string) {
         this.login = this.login.bind(this);
@@ -36,13 +36,12 @@ export default class AuthService {
         this.auth0.parseHash((err, authResult) => {
           if (authResult && authResult.accessToken && authResult.idToken) {
             this.setSession(authResult)
-            router.replace('home')
+            Router.replace('home')
           } else if (err) {
-            router.replace('home')
+            Router.replace('home')
             console.log(err)
             alert(`Error: ${err.error}. Check the console for further details.`)
           }
-          location.reload()          
         })
       }
 
@@ -54,7 +53,7 @@ export default class AuthService {
         localStorage.setItem('access_token', authResult.accessToken)
         localStorage.setItem('id_token', authResult.idToken)
         localStorage.setItem('expires_at', expiresAt)
-        this.authNotifier.emit('authChange', { authenticated: true })
+        EventEmitter.emit('authChange', true)
       }
 
       logout () {
@@ -63,10 +62,9 @@ export default class AuthService {
         localStorage.removeItem('id_token')
         localStorage.removeItem('expires_at')
         //this.userProfile = null
-        this.authNotifier.emit('authChange', false)
+        EventEmitter.emit('authChange', false)
         // navigate to the home route
-        router.replace('home')
-        location.reload()
+        Router.replace('home')
       }
 
       isAuthenticated () {

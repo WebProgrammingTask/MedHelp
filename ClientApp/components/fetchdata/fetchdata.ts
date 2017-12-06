@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
-import axios from 'axios';
+import { ApiService } from '../../models/ApiService'
 
 
 interface WeatherForecast {
@@ -13,25 +13,19 @@ interface WeatherForecast {
 @Component
 export default class FetchDataComponent extends Vue {
     forecasts: WeatherForecast[] = [];
-     HTTP = axios.create({
-        baseURL: 'api/SampleData/WeatherForecasts',
-        
-      })
+
     mounted() {
-        axios.get("api/SampleData/WeatherForecasts",
-                {
-                    headers: {
-                        Authorization: 'Bearer ' + localStorage.getItem('access_token')
-                    }
-                })
+        ApiService.get("SampleData/WeatherForecasts",
+            {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('access_token')
+                }
+            })
             .then(response => {
                 this.forecasts = response.data
             })
             .catch(e => {
                 alert(e)
-            })
-           
-        // fetch('api/SampleData/WeatherForecasts')
-        
+            });
     }
 }

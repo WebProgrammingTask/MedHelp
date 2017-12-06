@@ -1,11 +1,16 @@
 import Vue from "vue";
+import { Component, Prop } from "vue-property-decorator";
+import AuthService from "../../auth/AuthService";
 
-export default Vue.extend({
-    name: 'callback',
-    props: ['auth'],
-    data () {
-      // alert(JSON.stringify(this.auth))
-      this.auth.handleAuthentication()
-      return {}
-    }
-  })
+
+@Component({
+  name: 'callback'
+})
+export default class Callback extends Vue {
+  @Prop()
+  auth: AuthService
+  data(){
+    this.auth.handleAuthentication()
+    return {}
+  }
+}

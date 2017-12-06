@@ -1,29 +1,56 @@
 <template>
-    <div>
-        <h1 v-if="authenticated">Здравствуй, врач! Система скоро будет готова!</h1>
+    <div v-if="auth.authenticated">
         <div>
-            <h4 v-if="authenticated">
-                Вы вошли в систему!
-            </h4>
-            <h4 v-if="!authenticated">
-              Вы не вошли в систему! Пожалуйста, <a @click="auth.login()">войдите</a> чтобы продолжить.
-            </h4>
-            <button
-            class="btn btn-primary btn-margin"
-            v-if="authenticated"
-            @click="auth.logout()">
-              Выйти
-          </button>
-    
-          </div>
+            <div class="p-5 gradient-overlay bg-secondary">
+                <h1 align="center">Здравствуй, врач! Система скоро будет готова!</h1>
+                <div class="container" v-if="lastOpenedDocs.length">
+                    <div class="row">
+                        <div class="p-3 align-self-center col-md-4" v-for="lastOpenedDoc in lastOpenedDocs">
+                            <div class="card">
+                                <div class="card-block p-5">
+                                    <h1>
+                                        <span style="font-size: 30px;">{{lastOpenedDoc.patient}}</span>
+                                    </h1>
+                                    <h3>{{lastOpenedDoc.template.name}}</h3>
+                                    <hr>
+                                    <p>{{lastOpenedDoc.lastOpenedTime}}</p>
+                                    <a href="#" class="btn btn-dark">Продолжить работу
+                                        <br> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="py-5 bg-light text-dark">
+                <div class="container" v-if="templates.length">
+                    <div class="row">
+                        <div class="col-md-4 my-3" v-for="template in templates">
+                            <div class="card">
+                                <div class="card-header bg-primary text-white text-center">{{template.name}}</div>
+                                <img class="img-fluid" :src="template.imagePath" alt="Card image">
+                                <div class="card-body">
+                                    <!-- <h6 class="card-subtitle text-muted">Support card subtitle</h6> -->
+                                    <p class="card-text p-y-1">{{template.description}}</p>
+                                    <a href="#" class="card-link">Начать работу</a>
+                                    <!-- <a href="#" class="card-link">Second link</a> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    
+    <div v-else>
+        вот ты лох
+        <h4>
+            Вы не вошли в систему! Пожалуйста,
+            <a @click="auth.login()">войдите</a> чтобы продолжить.
+        </h4>
+    </div>
 </template>
 
 
-<style>
-    a {
-      cursor: pointer;
-    }
-  </style>
+
 <script src="./home.ts" />
