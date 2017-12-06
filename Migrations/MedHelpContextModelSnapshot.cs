@@ -35,7 +35,7 @@ namespace MedHelp.Migrations
 
                     b.HasIndex("TemplateId");
 
-                    b.ToTable("GetLastOpenedDocuments");
+                    b.ToTable("LastOpenedDocuments");
                 });
 
             modelBuilder.Entity("MedHelp.Models.Template", b =>

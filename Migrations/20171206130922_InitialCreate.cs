@@ -25,7 +25,7 @@ namespace MedHelp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GetLastOpenedDocuments",
+                name: "LastOpenedDocuments",
                 columns: table => new
                 {
                     LastOpenedDocumentId = table.Column<int>(nullable: false)
@@ -47,14 +47,14 @@ namespace MedHelp.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_LastOpenedDocuments_TemplateId",
-                table: "GetLastOpenedDocuments",
+                table: "LastOpenedDocuments",
                 column: "TemplateId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "GetLastOpenedDocuments");
+                name: "LastOpenedDocuments");
 
             migrationBuilder.DropTable(
                 name: "Templates");

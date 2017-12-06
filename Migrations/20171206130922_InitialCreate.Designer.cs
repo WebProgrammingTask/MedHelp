@@ -11,7 +11,7 @@ using System;
 namespace MedHelp.Migrations
 {
     [DbContext(typeof(MedHelpContext))]
-    [Migration("20171206120843_InitialCreate")]
+    [Migration("20171206130922_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,7 +36,7 @@ namespace MedHelp.Migrations
 
                     b.HasIndex("TemplateId");
 
-                    b.ToTable("GetLastOpenedDocuments");
+                    b.ToTable("LastOpenedDocuments");
                 });
 
             modelBuilder.Entity("MedHelp.Models.Template", b =>
