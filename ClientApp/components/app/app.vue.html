@@ -1,9 +1,9 @@
 <template>
     <div>
         <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-            <menu-component :auth="auth" :authenticated="authenticated"/>
+            <menu-component :auth="auth"/>
           </nav>
-        <router-view :auth="auth" :authenticated="authenticated">
+        <router-view :auth="auth">
         </router-view>
     </div>
 

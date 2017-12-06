@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { Component, Prop } from 'vue-property-decorator';
+import { Component, Prop, Watch } from 'vue-property-decorator';
 import { Template } from '../../models/Template';
 import { ApiService } from '../../models/ApiService'
 import { LastOpenedDocument } from '../../models/LastOpenedDocument';
@@ -11,16 +11,19 @@ import AuthService from '../../auth/AuthService';
 export default class Home extends Vue {
   @Prop()
   auth: AuthService
-  @Prop()
-  authenticated: boolean
 
   templates: Template[] = [];
   lastOpenedDocs: LastOpenedDocument[] = [];
 
+  @Watch('auth.authenticated', { immediate: true, deep: true })
+  authChanged(new_authenticated: boolean, old_authenticated: boolean) {
+    if (new_authenticated) {
+      this.getLastOpenedDocs();
+      this.getTemplates();
+    }
+  }
 
-
-
-  mounted() {
+  getTemplates() {
     ApiService.get('templates/gettemplates')
       .then(response => {
         this.templates = response.data;
@@ -28,7 +31,9 @@ export default class Home extends Vue {
       .catch(e => {
         alert(e);
       });
+  }
 
+  getLastOpenedDocs() {
     ApiService.get('lastopeneddocuments/lastopeneddocuments')
       .then(response => {
         this.lastOpenedDocs = response.data;
@@ -37,5 +42,11 @@ export default class Home extends Vue {
       .catch(e => {
         alert(e);
       });
+  }
+
+
+  mounted() {
+    this.getLastOpenedDocs();
+    this.getTemplates();
   }
 }

@@ -11,5 +11,6 @@ export default class Callback extends Vue {
   auth: AuthService
   data(){
     this.auth.handleAuthentication()
+    return {}
   }
 }

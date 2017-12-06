@@ -4,8 +4,6 @@ import AuthService from '../../auth/AuthService';
 
 @Component
 export default class NavMenu extends Vue {
-@Prop()
-auth: AuthService
-@Prop()
-authenticated: boolean
+    @Prop()
+    auth: AuthService
 }
