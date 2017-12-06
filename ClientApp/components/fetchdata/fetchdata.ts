@@ -15,12 +15,7 @@ export default class FetchDataComponent extends Vue {
     forecasts: WeatherForecast[] = [];
 
     mounted() {
-        ApiService.get("SampleData/WeatherForecasts",
-            {
-                headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('access_token')
-                }
-            })
+        ApiService.get("SampleData/WeatherForecasts")
             .then(response => {
                 this.forecasts = response.data
             })

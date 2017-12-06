@@ -46,7 +46,9 @@ export default class Home extends Vue {
 
 
   mounted() {
-    this.getLastOpenedDocs();
-    this.getTemplates();
+    if (this.auth.authenticated) {
+      this.getLastOpenedDocs();
+      this.getTemplates();
+    }
   }
 }
