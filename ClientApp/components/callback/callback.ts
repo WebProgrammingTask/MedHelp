@@ -3,9 +3,7 @@ import { Component, Prop } from "vue-property-decorator";
 import AuthService from "../../auth/AuthService";
 
 
-@Component({
-  name: 'callback'
-})
+@Component
 export default class Callback extends Vue {
   @Prop()
   auth: AuthService
