@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using MedHelp.Data;
 using MedHelp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedHelp.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class LastOpenedDocumentsController : Controller
     {

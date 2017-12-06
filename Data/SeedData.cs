@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MedHelp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Type = MedHelp.Models.Type;
 
 namespace MedHelp.Data
 {
@@ -19,12 +20,46 @@ namespace MedHelp.Data
                 {
                     return;
                 }
+                var types = new[]
+                {
+                    new Type
+                    {
+                        TypeName = "SingleLine"
+                    },
+                    new Type
+                    {
+                        TypeName = "MultiLine",
+                    },
+                    new Type
+                    {
+                        TypeName = "Number",
+                    },
+                    new Type
+                    {
+                        TypeName = "Date",
+                    }
+                };
+                context.Types.AddRange(types);
+
                 var templates = new[]{
                     new Template
                     {
                         Name = "Справка о приеме",
                         Description = "Самая обычная справка о приеме какая только может быть",
-                        ImagePath = "https://pp.userapi.com/c638519/v638519335/547d6/N8qDUbqrCG4.jpg"
+                        ImagePath = "https://pp.userapi.com/c638519/v638519335/547d6/N8qDUbqrCG4.jpg",
+                        Properties = new List<Property>
+                        {
+                            new Property
+                            {
+                                Type = types[0],
+                                Theme = "Имя пациента"
+                            },
+                            new Property
+                            {
+                                Type = types[1],
+                                Theme = "Жалобы"
+                            }
+                        }
                     },
                     new Template
                     {
