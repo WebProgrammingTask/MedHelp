@@ -3,7 +3,6 @@ import { Component } from 'vue-property-decorator';
 import { EventEmitter } from '../../models/EventEmmiter'
 import AuthService from '../../auth/AuthService';
 
-
 const auth = new AuthService(window.location.hostname, window.location.port, window.location.protocol)
 
 var { login, logout } = auth

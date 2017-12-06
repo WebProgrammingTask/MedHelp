@@ -23,6 +23,7 @@ const router = new Router({
             redirect: '/home'
         },
         { path: '/', component: require('../components/home/home.vue.html') },
+        { path: '/callback', component: require('../components/callback/callback.vue.html') },        
         { path: '/counter', component: require('../components/counter/counter.vue.html') },
         { path: '/fetchdata', component: require('../components/fetchdata/fetchdata.vue.html') }
     ]

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
+import Router from '../../router/router'
 
 @Component
 export default class CounterComponent extends Vue {
@@ -7,5 +8,8 @@ export default class CounterComponent extends Vue {
 
     incrementCounter() {
         this.currentcount++;
+        if (this.currentcount > 5)
+        Router.replace('counter')    
+        
     }
 }
