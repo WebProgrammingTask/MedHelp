@@ -34,7 +34,7 @@ export default class Home extends Vue {
   }
 
   getLastOpenedDocs() {
-    ApiService.get('lastopeneddocuments/lastopeneddocuments')
+    ApiService.get('lastopeneddocuments/getlastopeneddocuments')
       .then(response => {
         this.lastOpenedDocs = response.data;
         //TODO: lastOpenedDoc.lastOpenedTime -> to date (now string)
@@ -46,7 +46,9 @@ export default class Home extends Vue {
 
 
   mounted() {
-    this.getLastOpenedDocs();
-    this.getTemplates();
+    if (this.auth.authenticated) {
+      this.getLastOpenedDocs();
+      this.getTemplates();
+    }
   }
 }

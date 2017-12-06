@@ -11,7 +11,7 @@
                                     <h1>
                                         <span style="font-size: 30px;">{{lastOpenedDoc.patient}}</span>
                                     </h1>
-                                    <h3>{{lastOpenedDoc.template.name}}</h3>
+                                    <h3>{{templates[lastOpenedDoc.templateId - 1].name}}</h3>
                                     <hr>
                                     <p>{{lastOpenedDoc.lastOpenedTime}}</p>
                                     <a href="#" class="btn btn-dark">Продолжить работу

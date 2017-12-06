@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MedHelp.Data;
 using MedHelp.ScopeMiddleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -47,6 +49,9 @@ namespace MedHelp
             services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 
             services.AddMvc();
+
+            services.AddDbContext<MedHelpContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("MedHelpDatabase")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

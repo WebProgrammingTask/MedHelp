@@ -1,9 +1,10 @@
-import {Template} from "./Template"
+import { Template } from "./Template"
 
 export class LastOpenedDocument {
+    lastOpenedDocumentId: number;
     patient: string;
     lastOpenedTime: Date;
-    template: Template;
+    templateId: number;
 
     //not working and I don't now why
     // public constructor() {
