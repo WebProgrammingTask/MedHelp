@@ -69,8 +69,6 @@ namespace MedHelp.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("Scheme");
-
                     b.HasKey("TemplateId");
 
                     b.ToTable("Templates");
