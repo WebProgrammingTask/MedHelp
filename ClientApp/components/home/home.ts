@@ -15,13 +15,13 @@ export default class Home extends Vue {
   templates: Template[] = [];
   lastOpenedDocs: LastOpenedDocument[] = [];
 
-  @Watch('auth.authenticated', { immediate: true, deep: true })
-  authChanged(new_authenticated: boolean, old_authenticated: boolean) {
-    if (new_authenticated) {
-      this.getLastOpenedDocs();
-      this.getTemplates();
-    }
-  }
+  // @Watch('auth.authenticated', { immediate: true, deep: true })
+  // authChanged(new_authenticated: boolean, old_authenticated: boolean) {
+  //   if (new_authenticated) {
+  //     //this.getTemplates();
+  //     //this.getLastOpenedDocs();
+  //   }
+  // }
 
   getTemplates() {
     ApiService.get('templates/gettemplates')
@@ -47,8 +47,8 @@ export default class Home extends Vue {
 
   mounted() {
     if (this.auth.authenticated) {
-      this.getLastOpenedDocs();
       this.getTemplates();
+      this.getLastOpenedDocs();
     }
   }
 }
