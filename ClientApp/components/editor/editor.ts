@@ -7,6 +7,7 @@ import { Template } from '../../models/Template';
 import "vue-form-generator/dist/vfg.css";
 import AutoSuggest from '../types/autosuggest/autosuggest';
 import Multiselect from 'vue-multiselect';
+import { EventEmitter } from "../../models/EventEmmiter";
 
 // register globally
 Vue.component('multiselect', Multiselect)
@@ -30,6 +31,11 @@ export default class Editor extends Vue {
     template: Template = new Template();
 
     mounted() {
+        let self = this;
+        EventEmitter.on('model_changed', (value : any) => {
+            self.model.country = value;
+        })
+
         ApiService.get('Templates/GetTemplateWithProperties/' + this.templateId)
             .then(response => {
                 this.template = response.data
@@ -46,12 +52,14 @@ export default class Editor extends Vue {
         skills: ["Javascript", "VueJS"],
         email: "john.doe@gmail.com",
         status: true,
-        suggest: 1
+        suggest: 1,
+        country: [],
     }
 
     schema: any = {
         fields: [
             {
+                model: "country",
                 type: "vueMultiSelect",
                 label: "Country",
                 placeholder: "Select a country",
@@ -66,9 +74,9 @@ export default class Editor extends Vue {
                     searchable: true,
                     taggable: true,
                     limit: 10,
+                    sel: this,
                     onNewTag: function (newTag : any, id: any, options: any, value: any) {
-                        options.push(newTag);
-                        value.push(newTag);
+                        EventEmitter.emit('model_changed', value);
                     }
                 }
             },
@@ -173,5 +181,4 @@ export default class Editor extends Vue {
         validateAfterLoad: false,
         validateAfterChanged: false
     }
-
 }

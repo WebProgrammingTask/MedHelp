@@ -5434,7 +5434,7 @@
       "dev": true
     },
     "vue-form-generator": {
-      "version": "git+https://github.com/WebProgrammingTask/vue-form-generator.git#7b8e0e3557962c2c5d3cc78a2a0b4e0e0248939a",
+      "version": "git+https://github.com/WebProgrammingTask/vue-form-generator.git#a05c27cc95ae592ace27a0dde634b33dc6e73a17",
       "dev": true
     },
     "vue-hot-reload-api": {
