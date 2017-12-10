@@ -1,7 +1,12 @@
 <template>
     <div>
         <h1>There will be editor</h1>
-        <h2>{{templateId}}</h2>
+        <!-- <h2>{{template}}</h2> -->
+        <div v-for="property in template.properties">
+            <h1>{{property.theme}}</h1>
+            <component :is="property.type.typeName"></component>
+            <br/>
+        </div>
     </div>
   </template>
   

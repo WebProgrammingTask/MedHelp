@@ -1,5 +1,5 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 @Component
-export default class MultiLine extends Vue {
+export default class SingleLine extends Vue {
 }
