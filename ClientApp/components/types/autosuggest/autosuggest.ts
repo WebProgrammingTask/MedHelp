@@ -18,18 +18,18 @@ export default class AutoSuggest extends Vue {
         { value: '5', text: 'de' + ' - ' + '5' }
     ]
     searchText: any = ''
-    item:any = {
+    item: any = {
         value: '',
         text: ''
-      }
+    }
 
 
     reset() {
         this.item = {}
     }
-    onSelect (item:any) {
+    onSelect(item: any) {
         this.item = item
-      }
+    }
     selectOption() {
         // select option from parent component
         this.item = this.options[0]

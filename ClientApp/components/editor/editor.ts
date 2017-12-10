@@ -4,15 +4,19 @@ import { Component, Prop } from 'vue-property-decorator';
 import { ApiService } from '../../models/ApiService';
 import { Template } from '../../models/Template';
 import "vue-form-generator/dist/vfg.css";
+import AutoSuggest from '../types/autosuggest/autosuggest';
+
+Vue.component('fieldAutoSuggest', AutoSuggest)
 
 Vue.use(VueFormGenerator)
+
 
 @Component({
     components: {
         MultiLine: require('../types/multiLine/multiLine.vue.html'),
         SingleLine: require('../types/singleLine/singleLine.vue.html'),
         AutoSuggest: require('../types/autosuggest/autosuggest.vue.html')
-    },
+    }
 })
 export default class Editor extends Vue {
     @Prop()
@@ -36,12 +40,18 @@ export default class Editor extends Vue {
         password: "J0hnD03!x4",
         skills: ["Javascript", "VueJS"],
         email: "john.doe@gmail.com",
-        status: true
+        status: true,
+        suggest: 1
     }
 
 
     schema: any = {
         fields: [
+            {
+                type: "AutoSuggest",
+                label: "Serega",
+                model: "suggest"
+            },
             {
                 type: "input",
                 inputType: "text",
