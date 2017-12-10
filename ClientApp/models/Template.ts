@@ -5,5 +5,7 @@ export class Template {
     name: string;
     description: string;
     imagePath: string;
+    schemeJson: string;
+    modelJson: string;
     properties: Property[];
 }

@@ -38,98 +38,104 @@ export default class Editor extends Vue {
 
     mounted() {
         let self = this;
-        EventEmitter.on('model_changed', (value : any) => {
+        EventEmitter.on('model_changed', (value: any) => {
             self.model.country = value;
         })
 
         ApiService.get('Templates/GetTemplateWithProperties/' + this.templateId)
             .then(response => {
-                this.template = response.data
+                this.template = response.data;
+                this.model = JSON.parse(this.template.modelJson);
+                this.schema = JSON.parse(this.template.schemeJson);
             })
             .catch(e => {
                 alert(e);
             });
     }
 
-    model: any = {
-        patientName: "",
-        patientBirthday: new Date(),
-        visitDay: new Date(),
-        speciality: "",
-        doctorName: "",
-        complaints: "",
-        anammnesis: "",
-        reccommended: ""
+    model: any;
+    // = {
+    //     patientName: "",
+    //     patientBirthday: new Date(),
+    //     visitDay: new Date(),
+    //     speciality: "",
+    //     doctorName: "",
+    //     complaints: "",
+    //     anammnesis: "",
+    //     recommended: ""
+    // }
+
+    schema: any;
+    //  = {
+    //     fields: [
+    //         {
+    //             type: "submit",
+    //             buttonText: "Сохранить"
+    //         },
+    //         {
+    //             type: "input",
+    //             inputType: "text",
+    //             model: "patientName",
+    //             label: "ФИО пацента",
+    //             placeholder: "Введите сюда имя пациента"
+    //         },
+    //         {
+    //             type: "dateTimePicker",
+    //             label: "Дата рождения пациента",
+    //             model: "patientBirthday",
+    //             dateTimePickerOptions: {
+    //                 format: "YYYY-MM-DD"
+    //             }
+    //         },
+    //         {
+    //             type: "dateTimePicker",
+    //             label: "Дата посещения",
+    //             model: "visitDay",
+    //             dateTimePickerOptions: {
+    //                 format: "YYYY-MM-DD"
+    //             }
+    //         },
+    //         {
+    //             type: "input",
+    //             inputType: "text",
+    //             model: "speciality",
+    //             label: "Специальность"
+    //         },
+    //         {
+    //             type: "input",
+    //             inputType: "text",
+    //             model: "doctorName",
+    //             label: "Имя доктора"
+    //         },
+    //         {
+    //             type: "textArea",
+    //             model: "complaints",
+    //             label: "Жалобы",
+    //             rows: 5
+    //         },
+    //         {
+    //             type: "textArea",
+    //             model: "anammnesis",
+    //             label: "Анамнез",
+    //             rows: 5
+    //         },
+    //         {
+    //             type: "textArea",
+    //             model: "recommended",
+    //             label: "Рекомендации",
+    //             rows: 5
+    //         },
+    //         {
+    //             type: "submit",
+    //             buttonText: "Сохранить"
+    //         }
+    //     ]
+    // }
+
+    save() {
+        console.log(JSON.stringify(this.model));
     }
 
-    schema: any = {
-        fields: [
-            {
-                type: "submit",
-                buttonText: "Сохранить"
-            },
-            {
-                type: "input",
-                inputType: "text",
-                model: "patientName",
-                label: "ФИО пацента",
-                placeholder: "Введите сюда имя пациента"
-            },
-            {
-                type: "dateTimePicker",
-                label: "Дата рождения пациента",
-                model: "patientBirthday",
-                dateTimePickerOptions: {
-                    format: "YYYY-MM-DD"
-                }
-            },
-            {
-                type: "dateTimePicker",
-                label: "Дата посещения",
-                model: "visitDay",
-                dateTimePickerOptions: {
-                    format: "YYYY-MM-DD"
-                }
-            },
-            {
-                type: "input",
-                inputType: "text",
-                model: "speciality",
-                label: "Специальность"
-            },
-            {
-                type: "input",
-                inputType: "text",
-                model: "doctorName",
-                label: "Имя доктора"
-            },
-            {
-                type: "textArea",
-                model: "complaints",
-                label: "Жалобы",
-                rows: 5
-            },
-            {
-                type: "textArea",
-                model: "anammnesis",
-                label: "Анамнез",
-                rows: 5
-            },
-            {
-                type: "textArea",
-                model: "reccommended",
-                label: "Рекомендации",
-                rows: 5
-            },
-            {
-                type: "submit",
-                buttonText: "Сохранить"
-            }
-        ]
-    }
-    save() {
-        
-    }
     formOptions: any = {
         validateAfterLoad: false,
         validateAfterChanged: false
