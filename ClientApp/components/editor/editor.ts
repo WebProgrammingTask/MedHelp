@@ -52,146 +52,84 @@ export default class Editor extends Vue {
     }
 
     model: any = {
-        id: 1,
-        name: "John Doe",
-        password: "J0hnD03!x4",
-        skills: ["Javascript", "VueJS"],
-        email: "john.doe@gmail.com",
-        status: true,
-        suggest: 1,
-        country: [],
-        today: new Date(),
+        patientName: "",
+        patientBirthday: new Date(),
+        visitDay: new Date(),
+        speciality: "",
+        doctorName: "",
+        complaints: "",
+        anammnesis: "",
+        reccommended: ""
     }
 
     schema: any = {
         fields: [
             {
+                type: "submit",
+                buttonText: "Сохранить"
+            },
+            {
+                type: "input",
+                inputType: "text",
+                model: "patientName",
+                label: "ФИО пацента",
+                placeholder: "Введите сюда имя пациента"
+            },
+            {
                 type: "dateTimePicker",
-                label: "Дата приема",
-                model: "today",
+                label: "Дата рождения пациента",
+                model: "patientBirthday",
                 dateTimePickerOptions: {
                     format: "YYYY-MM-DD"
                 }
             },
             {
-                model: "country",
-                type: "vueMultiSelect",
-                label: "Country",
-                placeholder: "Select a country",
-                values: [1, 2, 3],
-                options: [],
-                selectOptions: {
-                    multiple: true,
-                    hideselected: true,
-                    multiSelect: true,
-                    closeOnSelect: true,
-                    showLabels: false,
-                    searchable: true,
-                    taggable: true,
-                    limit: 10,
-                    sel: this,
-                    onNewTag: function (newTag : any, id: any, options: any, value: any) {
-                        EventEmitter.emit('model_changed', value);
-                    }
+                type: "dateTimePicker",
+                label: "Дата посещения",
+                model: "visitDay",
+                dateTimePickerOptions: {
+                    format: "YYYY-MM-DD"
                 }
             },
             {
-                type: "AutoSuggest",
-                label: "Serega",
-                model: "suggest"
+                type: "input",
+                inputType: "text",
+                model: "speciality",
+                label: "Специальность"
             },
             {
                 type: "input",
                 inputType: "text",
-                label: "ID",
-                model: "id",
-                inputName: "id",
-                readonly: true,
-                featured: false,
-                disabled: true
+                model: "doctorName",
+                label: "Имя доктора"
             },
             {
-                type: "input",
-                inputType: "text",
-                label: "Name",
-                model: "name",
-                inputName: "name",
-                readonly: false,
-                featured: true,
-                required: true,
-                disabled: false,
-                placeholder: "User's name",
-                //validator: VueFormGenerator.validators.string
+                type: "textArea",
+                model: "complaints",
+                label: "Жалобы",
+                rows: 5
             },
             {
-                type: "input",
-                inputType: "password",
-                label: "Password",
-                model: "password",
-                inputName: "password",
-                min: 6,
-                required: true,
-                hint: "Minimum 6 characters",
-                //validator: VueFormGenerator.validators.string
+                type: "textArea",
+                model: "anammnesis",
+                label: "Анамнез",
+                rows: 5
             },
             {
-                type: "input",
-                inputType: "email",
-                label: "E-mail",
-                model: "email",
-                inputName: "email",
-                placeholder: "User's e-mail address",
-                //validator: VueFormGenerator.validators.email
-            },
-            {
-                type: "select",
-                label: "Skills",
-                model: "skills",
-                inputName: "skills",
-                required: true,
-                values: [
-                    "HTML5",
-                    "Javascript",
-                    "CSS3",
-                    "CoffeeScript",
-                    "AngularJS",
-                    "ReactJS",
-                    "VueJS"
-                ],
-                //validator: VueFormGenerator.validators.string
-            },
-            {
-                type: "upload",
-                label: "Photo",
-                model: "photo",
-                inputName: "photo",
-            },
-            {
-                type: "checkbox",
-                label: "Status",
-                model: "status",
-                inputName: "status",
-                multi: true,
-                readonly: false,
-                featured: false,
-                disabled: false,
-                default: true
-            },
-            {
-                type: "AutoSuggest",
-                label: "Awesome (custom field)",
+                type: "textArea",
+                model: "reccommended",
+                label: "Рекомендации",
+                rows: 5
             },
             {
                 type: "submit",
-                label: "",
-                buttonText: "Submit",
-                validateBeforeSubmit: true
+                buttonText: "Сохранить"
             }
-
-
         ]
     }
-
+    save() {
+        
+    }
     formOptions: any = {
         validateAfterLoad: false,
         validateAfterChanged: false
