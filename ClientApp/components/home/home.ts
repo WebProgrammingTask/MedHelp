@@ -6,7 +6,10 @@ import { LastOpenedDocument } from '../../models/LastOpenedDocument';
 import AuthService from '../../auth/AuthService';
 
 @Component({
-  name: 'home'
+  name: 'home',
+  components: {
+    MultiLineComponent: require('../types/multiLine/multiLine.vue.html'),
+  }
 })
 export default class Home extends Vue {
   @Prop()

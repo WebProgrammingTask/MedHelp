@@ -26,8 +26,4 @@ var { login, logout } = auth
     }
 })
 export default class App extends Vue {
-    // data() {        
-
-    // }
-
 }
