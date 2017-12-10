@@ -1591,7 +1591,7 @@
     "fsevents": {
       "version": "1.1.3",
       "resolved": "https://registry.npmjs.org/fsevents/-/fsevents-1.1.3.tgz",
-      "integrity": "sha512-WIr7iDkdmdbxu/Gh6eKEZJL6KPE74/5MEsf2whTOFNxbIoIixogroLdKYqB6FDav4Wavh/lZdzzd3b2KxIXC5Q==",
+      "integrity": "sha1-EfgjGPX+e7LNIpZaEI6TBiCCFtg=",
       "dev": true,
       "optional": true,
       "requires": {
@@ -5433,6 +5433,12 @@
       "integrity": "sha512-kTtT2YgWPBpyiJFTvLXA6gOHVzMYxF9IKwMEPRRh1aF24m8dLrpXSmvheQU9zoSEEtUza44a1tZhDEVC1l+KCg==",
       "dev": true
     },
+    "vue-form-generator": {
+      "version": "2.1.1",
+      "resolved": "https://registry.npmjs.org/vue-form-generator/-/vue-form-generator-2.1.1.tgz",
+      "integrity": "sha1-D1dFIAXC0xD75UXKK/MBU1YvTyg=",
+      "dev": true
+    },
     "vue-hot-reload-api": {
       "version": "2.2.4",
       "resolved": "https://registry.npmjs.org/vue-hot-reload-api/-/vue-hot-reload-api-2.2.4.tgz",
@@ -5473,6 +5479,12 @@
       "version": "3.0.1",
       "resolved": "https://registry.npmjs.org/vue-router/-/vue-router-3.0.1.tgz",
       "integrity": "sha512-vLLoY452L+JBpALMP5UHum9+7nzR9PeIBCghU9ZtJ1eWm6ieUI8Zb/DI3MYxH32bxkjzYV1LRjNv4qr8d+uX/w==",
+      "dev": true
+    },
+    "vue-search-select": {
+      "version": "2.4.0",
+      "resolved": "https://registry.npmjs.org/vue-search-select/-/vue-search-select-2.4.0.tgz",
+      "integrity": "sha512-UXftaKM57u6G9sSDnU3UrkClGptdpCsv4xkPGZH7o4q5cdUdwE8VRpNv0k0w1Irw2997zHHiU0UQnhk2fCRBMQ==",
       "dev": true
     },
     "vue-style-loader": {

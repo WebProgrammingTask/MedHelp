@@ -1,12 +1,16 @@
-<template>
+<template>  
     <div>
         <h1>There will be editor</h1>
+        <AutoSuggest />         
         <!-- <h2>{{template}}</h2> -->
         <div v-for="property in template.properties">
             <h1>{{property.theme}}</h1>
             <component :is="property.type.typeName"></component>
             <br/>
         </div>
+        <form>    
+                <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>      
+        </form> 
     </div>
   </template>
   

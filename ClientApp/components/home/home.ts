@@ -18,14 +18,6 @@ export default class Home extends Vue {
   templates: Template[] = [];
   lastOpenedDocs: LastOpenedDocument[] = [];
 
-  // @Watch('auth.authenticated', { immediate: true, deep: true })
-  // authChanged(new_authenticated: boolean, old_authenticated: boolean) {
-  //   if (new_authenticated) {
-  //     //this.getTemplates();
-  //     //this.getLastOpenedDocs();
-  //   }
-  // }
-
   getTemplates() {
     ApiService.get('templates/gettemplates')
       .then(response => {
