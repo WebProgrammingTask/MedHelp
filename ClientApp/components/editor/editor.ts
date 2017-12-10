@@ -1,3 +1,4 @@
+import "vue-multiselect/dist/vue-multiselect.min.css";
 import Vue from 'vue';
 import VueFormGenerator from "vue-form-generator";
 import { Component, Prop } from 'vue-property-decorator';
@@ -5,6 +6,10 @@ import { ApiService } from '../../models/ApiService';
 import { Template } from '../../models/Template';
 import "vue-form-generator/dist/vfg.css";
 import AutoSuggest from '../types/autosuggest/autosuggest';
+import Multiselect from 'vue-multiselect';
+
+// register globally
+Vue.component('multiselect', Multiselect)
 
 Vue.component('fieldAutoSuggest', AutoSuggest)
 
@@ -44,9 +49,29 @@ export default class Editor extends Vue {
         suggest: 1
     }
 
-
     schema: any = {
         fields: [
+            {
+                type: "vueMultiSelect",
+                label: "Country",
+                placeholder: "Select a country",
+                values: [1, 2, 3],
+                options: [],
+                selectOptions: {
+                    multiple: true,
+                    hideselected: true,
+                    multiSelect: true,
+                    closeOnSelect: true,
+                    showLabels: false,
+                    searchable: true,
+                    taggable: true,
+                    limit: 10,
+                    onNewTag: function (newTag : any, id: any, options: any, value: any) {
+                        options.push(newTag);
+                        value.push(newTag);
+                    }
+                }
+            },
             {
                 type: "AutoSuggest",
                 label: "Serega",
@@ -139,7 +164,7 @@ export default class Editor extends Vue {
                 buttonText: "Submit",
                 validateBeforeSubmit: true
             }
-            
+
 
         ]
     }
@@ -149,4 +174,4 @@ export default class Editor extends Vue {
         validateAfterChanged: false
     }
 
- }
+}
