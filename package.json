@@ -4,6 +4,8 @@
   "version": "0.0.0",
   "devDependencies": {
     "@types/auth0-js": "^8.10.2",
+    "@types/eonasdan-bootstrap-datetimepicker": "^4.17.26",
+    "@types/jquery": "<2.2",
     "@types/webpack-env": "^1.13.2",
     "aspnet-webpack": "^2.0.1",
     "auth0-js": "^8.11.3",
@@ -11,6 +13,7 @@
     "axios": "^0.17.1",
     "bootstrap": "^3.3.7",
     "css-loader": "^0.28.7",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47",
     "event-source-polyfill": "^0.0.12",
     "extract-text-webpack-plugin": "^2.0.0-rc",
     "file-loader": "^1.1.5",

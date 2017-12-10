@@ -1,4 +1,7 @@
 import "vue-multiselect/dist/vue-multiselect.min.css";
+import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
+import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css'
+// import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker-standalone.css'
 import Vue from 'vue';
 import VueFormGenerator from "vue-form-generator";
 import { Component, Prop } from 'vue-property-decorator';
@@ -8,11 +11,14 @@ import "vue-form-generator/dist/vfg.css";
 import AutoSuggest from '../types/autosuggest/autosuggest';
 import Multiselect from 'vue-multiselect';
 import { EventEmitter } from "../../models/EventEmmiter";
+import eonosdandatetimepicker from 'eonasdan-bootstrap-datetimepicker';
 
 // register globally
 Vue.component('multiselect', Multiselect)
 
 Vue.component('fieldAutoSuggest', AutoSuggest)
+
+Vue.component('datetimepicker', eonosdandatetimepicker);
 
 Vue.use(VueFormGenerator)
 
@@ -54,10 +60,19 @@ export default class Editor extends Vue {
         status: true,
         suggest: 1,
         country: [],
+        today: new Date(),
     }
 
     schema: any = {
         fields: [
+            {
+                type: "dateTimePicker",
+                label: "Дата приема",
+                model: "today",
+                dateTimePickerOptions: {
+                    format: "YYYY-MM-DD"
+                }
+            },
             {
                 model: "country",
                 type: "vueMultiSelect",
