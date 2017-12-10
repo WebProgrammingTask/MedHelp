@@ -30,8 +30,7 @@ namespace MedHelp.Controllers
         public Template GetTemplateWithProperties(int templateId)
         {
             var template = _context.Templates.Single(t => t.TemplateId == templateId);
-            _context.Entry(template).Collection(t => t.Properties).Load();
-            
+            _context.Entry(template).Collection(t => t.Properties).Query().Include(p => p.Type).Load();
             return template;
         }
     }
