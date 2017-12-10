@@ -32,7 +32,7 @@
                                 <div class="card-body">
                                     <!-- <h6 class="card-subtitle text-muted">Support card subtitle</h6> -->
                                     <p class="card-text p-y-1">{{template.description}}</p>
-                                    <router-link to="editor">Начать работу</router-link>
+                                    <router-link :to="{name: 'editor', params : {templateId: 123}}">Начать работу</router-link>
                                     <!-- <a href="#" class="card-link">Second link</a> -->
                                 </div>
                             </div>

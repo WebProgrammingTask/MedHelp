@@ -24,9 +24,10 @@ const router = new Router({
             redirect: '/home'
         },
         {
-            path: '/editor',
+            path: '/editor/:templateId',
             name: 'editor',
-            component: Editor
+            component: Editor,
+            props: true
         },
         { path: '/', component: require('../components/home/home.vue.html') },
         { path: '/callback', component: require('../components/callback/callback.vue.html') },
