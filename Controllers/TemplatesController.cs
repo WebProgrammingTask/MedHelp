@@ -5,10 +5,11 @@ using MedHelp.Data;
 using MedHelp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace MedHelp.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     public class TemplatesController : Controller
     {
@@ -23,6 +24,15 @@ namespace MedHelp.Controllers
         public IEnumerable<Template> GetTemplates()
         {
             return _context.Templates;
+        }
+
+        [HttpGet("[action]/{templateId}")]
+        public Template GetTemplateWithProperties(int templateId)
+        {
+            var template = _context.Templates.Single(t => t.TemplateId == templateId);
+            _context.Entry(template).Collection(t => t.Properties).Load();
+            
+            return template;
         }
     }
 }

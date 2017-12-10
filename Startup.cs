@@ -48,7 +48,8 @@ namespace MedHelp
 
             services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddDbContext<MedHelpContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("MedHelpDatabase")));
