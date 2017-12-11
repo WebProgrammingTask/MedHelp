@@ -10,6 +10,5 @@ namespace MedHelp.Models
         public string ImagePath { get; set; }
         public string ModelJson { get; set; }
         public string SchemeJson { get; set; }
-        public List<Property> Properties { get; set; }
     }
 }

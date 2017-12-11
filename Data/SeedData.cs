@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using MedHelp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Type = MedHelp.Models.Type;
 
 namespace MedHelp.Data
 {
@@ -20,28 +19,6 @@ namespace MedHelp.Data
                 {
                     return;
                 }
-                var types = new[]
-                {
-                    new Type
-                    {
-                        TypeName = "SingleLine"
-                    },
-                    new Type
-                    {
-                        TypeName = "MultiLine",
-                    },
-                    new Type
-                    {
-                        TypeName = "Number",
-                    },
-                    new Type
-                    {
-                        TypeName = "Date",
-                    }
-                };
-                context.Types.AddRange(types);
-
-
 
                 var medicines = new[]
                 {
@@ -58,20 +35,7 @@ namespace MedHelp.Data
                         SchemeJson = @"{""fields"":[{""type"":""submit"",""buttonText"":""Сохранить""},{""type"":""input"",""inputType"":""text"",""model"":""patientName"",""label"":""ФИО пацента"",""placeholder"":""Введите сюда имя пациента""},{""type"":""dateTimePicker"",""label"":""Дата рождения пациента"",""model"":""patientBirthday"",""dateTimePickerOptions"":{""format"":""YYYY-MM-DD""}},{""type"":""dateTimePicker"",""label"":""Дата посещения"",""model"":""visitDay"",""dateTimePickerOptions"":{""format"":""YYYY-MM-DD""}},{""type"":""input"",""inputType"":""text"",""model"":""speciality"",""label"":""Специальность""},{""type"":""input"",""inputType"":""text"",""model"":""doctorName"",""label"":""Имя доктора""},{""type"":""textArea"",""model"":""complaints"",""label"":""Жалобы"",""rows"":5},{""type"":""textArea"",""model"":""anammnesis"",""label"":""Анамнез"",""rows"":5},{""type"":""textArea"",""model"":""recommended"",""label"":""Рекомендации"",""rows"":5},{""type"":""vueMultiSelect"",""label"":""Лекарства"",""placeholder"":""Пожалуйста, выберите лекарства"",""values"":[],""selectOptions"":{""multiple"":true,""hideselected"":true,""multiSelect"":true,""closeOnSelect"":true,""showLabels"":false,""searchable"":true,""taggable"":true,""limit"":10}},{""type"":""submit"",""buttonText"":""Сохранить""}]}",
                         ModelJson = @"{""patientName"":"""",""patientBirthday"":""2017-12-10T23:29:08.947Z"",""visitDay"":""2017-12-10T23:29:08.947Z"",""medicines"":""[]"",""speciality"":"""",""doctorName"":"""",""complaints"":"""",""anammnesis"":"""",""recommended"":""""}",
                         Description = "Самая обычная справка о приеме какая только может быть",
-                        ImagePath = "https://doc-rf.com/templates/SYNERGY-CP1251/images/sprav/ych/doc.jpg",
-                        Properties = new List<Property>
-                        {
-                            new Property
-                            {
-                                Type = types[0],
-                                Theme = "Имя пациента"
-                            },
-                            new Property
-                            {
-                                Type = types[1],
-                                Theme = "Жалобы"
-                            }
-                        }
+                        ImagePath = "https://doc-rf.com/templates/SYNERGY-CP1251/images/sprav/ych/doc.jpg"
                     },
                     new Template
                     {

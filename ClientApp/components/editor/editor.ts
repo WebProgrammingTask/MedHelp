@@ -8,7 +8,6 @@ import { Component, Prop } from 'vue-property-decorator';
 import { ApiService } from '../../models/ApiService';
 import { Template } from '../../models/Template';
 import "vue-form-generator/dist/vfg.css";
-import AutoSuggest from '../types/autosuggest/autosuggest';
 import Multiselect from 'vue-multiselect';
 import { EventEmitter } from "../../models/EventEmmiter";
 import eonosdandatetimepicker from 'eonasdan-bootstrap-datetimepicker';
@@ -18,20 +17,12 @@ import { VueRouter } from "vue-router/types/router";
 // register globally
 Vue.component('multiselect', Multiselect)
 
-Vue.component('fieldAutoSuggest', AutoSuggest)
-
 Vue.component('datetimepicker', eonosdandatetimepicker);
 
 Vue.use(VueFormGenerator)
 
 
-@Component({
-    components: {
-        MultiLine: require('../types/multiLine/multiLine.vue.html'),
-        SingleLine: require('../types/singleLine/singleLine.vue.html'),
-        AutoSuggest: require('../types/autosuggest/autosuggest.vue.html')
-    }
-})
+@Component
 export default class Editor extends Vue {
     @Prop()
     templateId: number
@@ -88,48 +79,7 @@ export default class Editor extends Vue {
         }
 
     }
-
-
-    //   model  = {
-    //         patientName: "",
-    //         medicines: [],
-    //         patientBirthday: new Date(),
-    //         visitDay: new Date(),
-    //         speciality: "",
-    //         doctorName: "",
-    //         complaints: "",
-    //         anammnesis: "",
-    //         recommended: ""
-    //     }
-    //     getTest()
-    //     {
-    //         return this.medicines == null ? [1, 2, 3] : this.medicines;
-    //     }
-
-    // schema = {
-    //     fields: [
-    //         { 
-    //             type: "vueMultiSelect", 
-    //             label: "Лекарства",  
-    //             placeholder: "Пожалуйста, выберите лекарства",  
-    //             values: this.getTest(),  
-    //             selectOptions: {  
-    //                 multiple: true,  
-    //                 hideselected: true,  
-    //                 multiSelect: true,  
-    //                 closeOnSelect: true,  
-    //                 showLabels: false,  
-    //                 searchable: true,  
-    //                 taggable: true,  
-    //                 limit: 10,  
-    //                 onNewTag: function (newTag : any, id: any, options: any, value: any) {  
-    //                     EventEmitter.emit('model_changed', value);  
-    //                 }  
-    //             }  
-    //         }
-    //     ]
-    // }
-
+    
     save() {
         var newLastOpenedDocument = new LastOpenedDocument();
         newLastOpenedDocument.lastOpenedTime = new Date();

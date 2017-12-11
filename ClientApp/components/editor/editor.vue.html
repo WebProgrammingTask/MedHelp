@@ -1,10 +1,5 @@
 <template>  
     <div>
-        <!-- <div v-for="property in template.properties">
-            <h1>{{property.theme}}</h1>
-            <component :is="property.type.typeName"></component>
-            <br/>
-        </div> -->
         <form v-on:submit.prevent="save">    
                 <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>      
         </form> 
