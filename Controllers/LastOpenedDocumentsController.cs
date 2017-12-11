@@ -6,6 +6,7 @@ using MedHelp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace MedHelp.Controllers
 {
@@ -14,10 +15,12 @@ namespace MedHelp.Controllers
     public class LastOpenedDocumentsController : Controller
     {
         private readonly MedHelpContext _context;
+        private readonly ILogger _logger;
 
-        public LastOpenedDocumentsController(MedHelpContext context)
+        public LastOpenedDocumentsController(MedHelpContext context, ILogger<LastOpenedDocumentsController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         [HttpGet("[action]")]
@@ -40,6 +43,7 @@ namespace MedHelp.Controllers
             }
             catch (Exception e)
             {
+                _logger.LogError(e, "Can not insert new last opened document");
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
