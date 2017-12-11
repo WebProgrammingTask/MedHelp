@@ -28,10 +28,33 @@ namespace MedHelp.Data
                 };
                 context.Medicines.AddRange(medicines.Select(m => new Medicine{MedicineName = m}));
 
+                var fields = new[]
+                {
+                    new Field
+                    {
+                        FieldType = "submit",
+                        RemainingProperties = @"""buttonText"":""Сохранить"""
+                    },
+                    new Field
+                    {
+                        FieldType = "input",
+                        Model = "patientName",
+                        Label = "ФИО пациента",
+                        Placeholder = "Введите сюда имя пациента"
+                    },
+                    new Field
+                    {
+                        FieldType = "dateTimePicker",
+                        Label = "День рождения пациента",
+                        Model = "patientBirthday"
+                    }
+                };
+
                 var templates = new[]{
                     new Template
                     {
                         Name = "Справка о приеме",
+                        Fields = fields.ToList(),
                         SchemeJson = @"{""fields"":[{""type"":""submit"",""buttonText"":""Сохранить""},{""type"":""input"",""inputType"":""text"",""model"":""patientName"",""label"":""ФИО пацента"",""placeholder"":""Введите сюда имя пациента""},{""type"":""dateTimePicker"",""label"":""Дата рождения пациента"",""model"":""patientBirthday"",""dateTimePickerOptions"":{""format"":""YYYY-MM-DD""}},{""type"":""dateTimePicker"",""label"":""Дата посещения"",""model"":""visitDay"",""dateTimePickerOptions"":{""format"":""YYYY-MM-DD""}},{""type"":""input"",""inputType"":""text"",""model"":""speciality"",""label"":""Специальность""},{""type"":""input"",""inputType"":""text"",""model"":""doctorName"",""label"":""Имя доктора""},{""type"":""textArea"",""model"":""complaints"",""label"":""Жалобы"",""rows"":5},{""type"":""textArea"",""model"":""anammnesis"",""label"":""Анамнез"",""rows"":5},{""type"":""textArea"",""model"":""recommended"",""label"":""Рекомендации"",""rows"":5},{""type"":""vueMultiSelect"",""label"":""Лекарства"",""placeholder"":""Пожалуйста, выберите лекарства"",""values"":[],""selectOptions"":{""multiple"":true,""hideselected"":true,""multiSelect"":true,""closeOnSelect"":true,""showLabels"":false,""searchable"":true,""taggable"":true,""limit"":10}},{""type"":""submit"",""buttonText"":""Сохранить""}]}",
                         ModelJson = @"{""patientName"":"""",""patientBirthday"":""2017-12-10T23:29:08.947Z"",""visitDay"":""2017-12-10T23:29:08.947Z"",""medicines"":""[]"",""speciality"":"""",""doctorName"":"""",""complaints"":"""",""anammnesis"":"""",""recommended"":""""}",
                         Description = "Самая обычная справка о приеме какая только может быть",
