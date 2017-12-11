@@ -13,6 +13,7 @@ import Multiselect from 'vue-multiselect';
 import { EventEmitter } from "../../models/EventEmmiter";
 import eonosdandatetimepicker from 'eonasdan-bootstrap-datetimepicker';
 import { LastOpenedDocument } from "../../models/LastOpenedDocument";
+import { VueRouter } from "vue-router/types/router";
 
 // register globally
 Vue.component('multiselect', Multiselect)
@@ -59,6 +60,7 @@ export default class Editor extends Vue {
             .catch(e => {
                 alert(e);
             });
+
         if (this.lastOpenedDocumentId != null) {
             ApiService.get('LastOpenedDocuments/GetLastOpenedDocument/' + this.lastOpenedDocumentId)
                 .then(response => {
@@ -159,12 +161,25 @@ export default class Editor extends Vue {
         newLastOpenedDocument.patient = this.model.patientName;
         if (this.lastOpenedDocumentId == null) {
             ApiService.post('LastOpenedDocuments/InsertNewLastOpenedDocument', newLastOpenedDocument)
-                .then(response => { console.log(response); })
+                .then(response => {
+                    this.$router.replace('editor?lastOpenedDocumentId=' + response.data + "&templateId=" + this.templateId);
+                    this.lastOpenedDocumentId = response.data;
+                    console.log(response);
+                })
                 .catch(e => {
                     console.log(e);
                 })
         }
-
+        else {
+            newLastOpenedDocument.lastOpenedDocumentId = this.lastOpenedDocumentId;
+            ApiService.put('LastOpenedDocuments/UpdateDocument/' + this.lastOpenedDocumentId, newLastOpenedDocument)
+                .then(response => {
+                    console.log(response);
+                })
+                .catch(e => {
+                    console.log(e);
+                })
+        }
     }
 
     formOptions: any = {
