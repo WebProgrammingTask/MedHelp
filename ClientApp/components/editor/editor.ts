@@ -12,6 +12,7 @@ import AutoSuggest from '../types/autosuggest/autosuggest';
 import Multiselect from 'vue-multiselect';
 import { EventEmitter } from "../../models/EventEmmiter";
 import eonosdandatetimepicker from 'eonasdan-bootstrap-datetimepicker';
+import { LastOpenedDocument } from "../../models/LastOpenedDocument";
 
 // register globally
 Vue.component('multiselect', Multiselect)
@@ -135,7 +136,18 @@ export default class Editor extends Vue {
     // }
 
     save() {
+        var newLastOpenedDocument = new LastOpenedDocument();
+        newLastOpenedDocument.lastOpenedTime = new Date();
+        newLastOpenedDocument.modelJson = JSON.stringify(this.model);
+        newLastOpenedDocument.templateId = this.templateId;
+        newLastOpenedDocument.patient = this.model.patientName;
         console.log(JSON.stringify(this.model));
+        ApiService.post('LastOpenedDocuments/InsertNewLastOpenedDocument', {
+            body: newLastOpenedDocument
+        }).then(response => {console.log(response)})
+        .catch(e => {
+            console.log(e);
+        })
     }
 
     formOptions: any = {
