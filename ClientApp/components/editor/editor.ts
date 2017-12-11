@@ -51,7 +51,7 @@ export default class Editor extends Vue {
         ApiService.get('Templates/GetTemplateWithProperties/' + this.templateId)
             .then(response => {
                 this.template = response.data;
-                if (self.lastOpenedDocumentId != null) {
+                if (self.lastOpenedDocumentId == null) {
                     this.model = JSON.parse(response.data.modelJson);
                 }
                 this.schema = JSON.parse(response.data.schemeJson);
@@ -63,6 +63,8 @@ export default class Editor extends Vue {
             ApiService.get('LastOpenedDocuments/GetLastOpenedDocument/' + this.lastOpenedDocumentId)
                 .then(response => {
                     this.model = JSON.parse(response.data.modelJson);
+                    console.log(
+                        this.model = JSON.parse(response.data.modelJson));
                 })
                 .catch(e => {
                     alert(e);
