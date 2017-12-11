@@ -8,6 +8,8 @@ namespace MedHelp.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string ImagePath { get; set; }
+        public string ModelJson { get; set; }
+        public string SchemeJson { get; set; }
         public List<Property> Properties { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace MedHelp.Models
         public string Patient { get; set; }
         public DateTime LastOpenedTime { get; set; }
         public int TemplateId { get; set; }
-
+        public string ModelJson { get; set; }
         [JsonIgnore]
         public Template Template { get; set; }
     }

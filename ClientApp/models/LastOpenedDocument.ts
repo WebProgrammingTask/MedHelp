@@ -5,6 +5,7 @@ export class LastOpenedDocument {
     patient: string;
     lastOpenedTime: Date;
     templateId: number;
+    modelJson: string;
 
     //not working and I don't now why
     // public constructor() {

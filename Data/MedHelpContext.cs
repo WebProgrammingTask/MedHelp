@@ -17,6 +17,7 @@ namespace MedHelp.Data
         public DbSet<LastOpenedDocument> LastOpenedDocuments { get; set; }
         public DbSet<Template> Templates { get; set; }
         public DbSet<Type> Types { get; set; }
+        public DbSet<Medicine> Medicines { get; set; }
         public DbSet<Property> Properties { get; set; }
     }
 }

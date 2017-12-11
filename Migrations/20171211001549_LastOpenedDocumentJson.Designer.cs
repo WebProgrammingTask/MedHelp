@@ -11,9 +11,10 @@ using System;
 namespace MedHelp.Migrations
 {
     [DbContext(typeof(MedHelpContext))]
-    partial class MedHelpContextModelSnapshot : ModelSnapshot
+    [Migration("20171211001549_LastOpenedDocumentJson")]
+    partial class LastOpenedDocumentJson
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,18 +39,6 @@ namespace MedHelp.Migrations
                     b.HasIndex("TemplateId");
 
                     b.ToTable("LastOpenedDocuments");
-                });
-
-            modelBuilder.Entity("MedHelp.Models.Medicine", b =>
-                {
-                    b.Property<int>("MedicineId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("MedicineName");
-
-                    b.HasKey("MedicineId");
-
-                    b.ToTable("Medicines");
                 });
 
             modelBuilder.Entity("MedHelp.Models.Property", b =>

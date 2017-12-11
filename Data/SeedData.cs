@@ -41,12 +41,24 @@ namespace MedHelp.Data
                 };
                 context.Types.AddRange(types);
 
+
+
+                var medicines = new[]
+                {
+                    "НО-ШПА","Фазостабил","Аскорбиновая кислота-Русфар","Аспирин","Афала","АФАЛАЗА","Афлодерм",
+                    "Афлюдол","Афобазол","Ацизол", "Календула","Калмирекс"
+
+                };
+                context.Medicines.AddRange(medicines.Select(m => new Medicine{MedicineName = m}));
+
                 var templates = new[]{
                     new Template
                     {
                         Name = "Справка о приеме",
+                        SchemeJson = @"{""fields"":[{""type"":""submit"",""buttonText"":""Сохранить""},{""type"":""input"",""inputType"":""text"",""model"":""patientName"",""label"":""ФИО пацента"",""placeholder"":""Введите сюда имя пациента""},{""type"":""dateTimePicker"",""label"":""Дата рождения пациента"",""model"":""patientBirthday"",""dateTimePickerOptions"":{""format"":""YYYY-MM-DD""}},{""type"":""dateTimePicker"",""label"":""Дата посещения"",""model"":""visitDay"",""dateTimePickerOptions"":{""format"":""YYYY-MM-DD""}},{""type"":""input"",""inputType"":""text"",""model"":""speciality"",""label"":""Специальность""},{""type"":""input"",""inputType"":""text"",""model"":""doctorName"",""label"":""Имя доктора""},{""type"":""textArea"",""model"":""complaints"",""label"":""Жалобы"",""rows"":5},{""type"":""textArea"",""model"":""anammnesis"",""label"":""Анамнез"",""rows"":5},{""type"":""textArea"",""model"":""recommended"",""label"":""Рекомендации"",""rows"":5},{""type"":""vueMultiSelect"",""label"":""Лекарства"",""placeholder"":""Пожалуйста, выберите лекарства"",""values"":[],""selectOptions"":{""multiple"":true,""hideselected"":true,""multiSelect"":true,""closeOnSelect"":true,""showLabels"":false,""searchable"":true,""taggable"":true,""limit"":10}},{""type"":""submit"",""buttonText"":""Сохранить""}]}",
+                        ModelJson = @"{""patientName"":"""",""patientBirthday"":""2017-12-10T23:29:08.947Z"",""visitDay"":""2017-12-10T23:29:08.947Z"",""medicines"":""[]"",""speciality"":"""",""doctorName"":"""",""complaints"":"""",""anammnesis"":"""",""recommended"":""""}",
                         Description = "Самая обычная справка о приеме какая только может быть",
-                        ImagePath = "https://pp.userapi.com/c638519/v638519335/547d6/N8qDUbqrCG4.jpg",
+                        ImagePath = "https://doc-rf.com/templates/SYNERGY-CP1251/images/sprav/ych/doc.jpg",
                         Properties = new List<Property>
                         {
                             new Property
@@ -64,14 +76,16 @@ namespace MedHelp.Data
                     new Template
                     {
                         Name = "Направление на анализы",
-                        Description = "Куда сказано, туда и иди",
-                        ImagePath = "https://pp.userapi.com/c630317/v630317313/1303d/i-eVXtwVRSo.jpg"
+                        //Description = "Куда сказано, туда и иди",
+                        Description = "Без анализов тут не обойтись", 
+                        ImagePath = "http://mediaspravka.ru/photos/15_1.jpg"
                     },
                     new Template
                     {
                         Name = "Направление к другому врачу",
-                        Description = "Ну, в этой ситуации я как бы уже это... Мои полномочия уже как бы всё... Окончены!",
-                        ImagePath = "https://pp.userapi.com/c623226/v623226313/4ab8b/RJ8H-rRuc3U.jpg"
+                        //Description = "Ну, в этой ситуации я как бы уже это... Мои полномочия уже как бы всё... Окончены!",
+                        Description = "Такого я ещё не видел. Пусть мои коллеги посмотрят",
+                        ImagePath = "https://i.imgur.com/AoSVPpc.png"
                     }
                 };
                 context.Templates.AddRange(templates);
