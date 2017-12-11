@@ -40,14 +40,17 @@ export default class Editor extends Vue {
 
 
     template: Template = new Template();
+    medicines: any = []
     model: any = {};
     schema: any = {};
 
     mounted() {
         let self = this;
         EventEmitter.on('model_changed', (value: any) => {
-            self.model.country = value;
+            self.model.medicines = value;
+            self.schema.fields[8].values = self.medicines;
         })
+
 
         ApiService.get('Templates/GetTemplateWithProperties/' + this.templateId)
             .then(response => {
@@ -56,6 +59,17 @@ export default class Editor extends Vue {
                     this.model = JSON.parse(response.data.modelJson);
                 }
                 this.schema = JSON.parse(response.data.schemeJson);
+                ApiService.get('medicine/getmedicines')
+                    .then(response => {
+                        self.medicines = response.data
+                        self.schema.fields[9].values = self.medicines;
+                        self.schema.fields[9].selectOptions.onNewTag = function (newTag: any, id: any, options: any, value: any) {
+                            EventEmitter.emit('model_changed', value);
+                        }
+                    })
+                    .catch(e => {
+                        alert(e);
+                    });
             })
             .catch(e => {
                 alert(e);
@@ -72,83 +86,46 @@ export default class Editor extends Vue {
                     alert(e);
                 });
         }
+
     }
 
 
-    // = {
-    //     patientName: "",
-    //     patientBirthday: new Date(),
-    //     visitDay: new Date(),
-    //     speciality: "",
-    //     doctorName: "",
-    //     complaints: "",
-    //     anammnesis: "",
-    //     recommended: ""
-    // }
+    //   model  = {
+    //         patientName: "",
+    //         medicines: [],
+    //         patientBirthday: new Date(),
+    //         visitDay: new Date(),
+    //         speciality: "",
+    //         doctorName: "",
+    //         complaints: "",
+    //         anammnesis: "",
+    //         recommended: ""
+    //     }
+    //     getTest()
+    //     {
+    //         return this.medicines == null ? [1, 2, 3] : this.medicines;
+    //     }
 
-
-    //  = {
+    // schema = {
     //     fields: [
-    //         {
-    //             type: "submit",
-    //             buttonText: "Сохранить"
-    //         },
-    //         {
-    //             type: "input",
-    //             inputType: "text",
-    //             model: "patientName",
-    //             label: "ФИО пацента",
-    //             placeholder: "Введите сюда имя пациента"
-    //         },
-    //         {
-    //             type: "dateTimePicker",
-    //             label: "Дата рождения пациента",
-    //             model: "patientBirthday",
-    //             dateTimePickerOptions: {
-    //                 format: "YYYY-MM-DD"
-    //             }
-    //         },
-    //         {
-    //             type: "dateTimePicker",
-    //             label: "Дата посещения",
-    //             model: "visitDay",
-    //             dateTimePickerOptions: {
-    //                 format: "YYYY-MM-DD"
-    //             }
-    //         },
-    //         {
-    //             type: "input",
-    //             inputType: "text",
-    //             model: "speciality",
-    //             label: "Специальность"
-    //         },
-    //         {
-    //             type: "input",
-    //             inputType: "text",
-    //             model: "doctorName",
-    //             label: "Имя доктора"
-    //         },
-    //         {
-    //             type: "textArea",
-    //             model: "complaints",
-    //             label: "Жалобы",
-    //             rows: 5
-    //         },
-    //         {
-    //             type: "textArea",
-    //             model: "anammnesis",
-    //             label: "Анамнез",
-    //             rows: 5
-    //         },
-    //         {
-    //             type: "textArea",
-    //             model: "recommended",
-    //             label: "Рекомендации",
-    //             rows: 5
-    //         },
-    //         {
-    //             type: "submit",
-    //             buttonText: "Сохранить"
+    //         { 
+    //             type: "vueMultiSelect", 
+    //             label: "Лекарства",  
+    //             placeholder: "Пожалуйста, выберите лекарства",  
+    //             values: this.getTest(),  
+    //             selectOptions: {  
+    //                 multiple: true,  
+    //                 hideselected: true,  
+    //                 multiSelect: true,  
+    //                 closeOnSelect: true,  
+    //                 showLabels: false,  
+    //                 searchable: true,  
+    //                 taggable: true,  
+    //                 limit: 10,  
+    //                 onNewTag: function (newTag : any, id: any, options: any, value: any) {  
+    //                     EventEmitter.emit('model_changed', value);  
+    //                 }  
+    //             }  
     //         }
     //     ]
     // }

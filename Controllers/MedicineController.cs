@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using MedHelp.Data;
 using MedHelp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Extensions.Internal;
 using Microsoft.Extensions.Logging;
 
 namespace MedHelp.Controllers
@@ -20,9 +22,9 @@ namespace MedHelp.Controllers
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<Medicine> GetMedicines()
+        public IEnumerable<string> GetMedicines()
         {
-            return _context.Medicines;
+            return _context.Medicines.ToList().Select(m => m.MedicineName).ToList();
         }
     }
 }
