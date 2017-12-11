@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using MedHelp.Models;
 using Microsoft.EntityFrameworkCore;
-using Type = MedHelp.Models.Type;
 
 
 namespace MedHelp.Data
@@ -16,8 +15,6 @@ namespace MedHelp.Data
         
         public DbSet<LastOpenedDocument> LastOpenedDocuments { get; set; }
         public DbSet<Template> Templates { get; set; }
-        public DbSet<Type> Types { get; set; }
         public DbSet<Medicine> Medicines { get; set; }
-        public DbSet<Property> Properties { get; set; }
     }
 }
