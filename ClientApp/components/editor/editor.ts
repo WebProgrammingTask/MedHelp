@@ -35,6 +35,8 @@ export default class Editor extends Vue {
     templateId: number
 
     template: Template = new Template();
+    model: any = {};
+    schema: any = {};
 
     mounted() {
         let self = this;
@@ -45,15 +47,15 @@ export default class Editor extends Vue {
         ApiService.get('Templates/GetTemplateWithProperties/' + this.templateId)
             .then(response => {
                 this.template = response.data;
-                this.model = JSON.parse(this.template.modelJson);
-                this.schema = JSON.parse(this.template.schemeJson);
+                this.model = JSON.parse(response.data.modelJson);
+                this.schema = JSON.parse(response.data.schemeJson);
             })
             .catch(e => {
                 alert(e);
             });
     }
 
-    model: any;
+
     // = {
     //     patientName: "",
     //     patientBirthday: new Date(),
@@ -65,7 +67,7 @@ export default class Editor extends Vue {
     //     recommended: ""
     // }
 
-    schema: any;
+
     //  = {
     //     fields: [
     //         {
