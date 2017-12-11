@@ -27,8 +27,14 @@ namespace MedHelp.Controllers
         }
 
 
+        [HttpGet("[action]/{lastOpenedDocumentId}")]
+        public LastOpenedDocument GetLastOpenedDocument(int lastOpenedDocumentId)
+        {
+            return _context.LastOpenedDocuments.Single(l => l.LastOpenedDocumentId == lastOpenedDocumentId);
+        }
+
         [HttpPost("[action]")]
-        public IActionResult InsertNewLastOpenedDocument([FromBody] LastOpenedDocument lastOpenedDocument)
+        public IActionResult InsertNewLastOpenedDocument([FromBody]LastOpenedDocument lastOpenedDocument)
         {
             if (lastOpenedDocument == null || !ModelState.IsValid)
                 return BadRequest();
@@ -36,7 +42,7 @@ namespace MedHelp.Controllers
             {
                 _context.LastOpenedDocuments.Add(lastOpenedDocument);
                 _context.SaveChanges();
-                return Ok();
+                return CreatedAtRoute("InsertNewLastOpenedDocument", new {Id = lastOpenedDocument.LastOpenedDocumentId}, lastOpenedDocument);
             }
             catch (Exception e)
             {

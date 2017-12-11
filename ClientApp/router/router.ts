@@ -24,10 +24,12 @@ const router = new Router({
             redirect: '/home'
         },
         {
-            path: '/editor/:templateId',
+            path: '/editor',
             name: 'editor',
             component: Editor,
-            props: true
+            props(route) {
+                return  route.query || {}
+              }
         },
         { path: '/', component: require('../components/home/home.vue.html') },
         { path: '/callback', component: require('../components/callback/callback.vue.html') },

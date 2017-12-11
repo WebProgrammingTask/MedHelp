@@ -34,6 +34,9 @@ Vue.use(VueFormGenerator)
 export default class Editor extends Vue {
     @Prop()
     templateId: number
+    @Prop()
+    lastOpenedDocumentId: number
+
 
     template: Template = new Template();
     model: any = {};
@@ -48,12 +51,23 @@ export default class Editor extends Vue {
         ApiService.get('Templates/GetTemplateWithProperties/' + this.templateId)
             .then(response => {
                 this.template = response.data;
-                this.model = JSON.parse(response.data.modelJson);
+                if (self.lastOpenedDocumentId != null) {
+                    this.model = JSON.parse(response.data.modelJson);
+                }
                 this.schema = JSON.parse(response.data.schemeJson);
             })
             .catch(e => {
                 alert(e);
             });
+        if (this.lastOpenedDocumentId != null) {
+            ApiService.get('LastOpenedDocuments/GetLastOpenedDocument/' + this.lastOpenedDocumentId)
+                .then(response => {
+                    this.model = JSON.parse(response.data.modelJson);
+                })
+                .catch(e => {
+                    alert(e);
+                });
+        }
     }
 
 
@@ -141,12 +155,14 @@ export default class Editor extends Vue {
         newLastOpenedDocument.modelJson = JSON.stringify(this.model);
         newLastOpenedDocument.templateId = this.templateId;
         newLastOpenedDocument.patient = this.model.patientName;
-        console.log(JSON.stringify(this.model));
-        ApiService.post('LastOpenedDocuments/InsertNewLastOpenedDocument', newLastOpenedDocument)
-            .then(response => { console.log(response); })
-        .catch(e => {
-            console.log(e);
-        })
+        if (this.lastOpenedDocumentId == null) {
+            ApiService.post('LastOpenedDocuments/InsertNewLastOpenedDocument', newLastOpenedDocument)
+                .then(response => { console.log(response); })
+                .catch(e => {
+                    console.log(e);
+                })
+        }
+
     }
 
     formOptions: any = {
