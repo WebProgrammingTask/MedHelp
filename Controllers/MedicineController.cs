@@ -21,6 +21,11 @@ namespace MedHelp.Controllers
             _logger = logger;
         }
 
+        public MedicineController(MedHelpContext context)
+        {
+            _context = context;
+        }
+
         [HttpGet("[action]")]
         public IEnumerable<string> GetMedicines()
         {

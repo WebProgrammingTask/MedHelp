@@ -23,6 +23,11 @@ namespace MedHelp.Controllers
             _logger = logger;
         }
 
+        public LastOpenedDocumentsController(MedHelpContext context)
+        {
+            _context = context;
+        }
+
         [HttpGet("[action]")]
         public IEnumerable<LastOpenedDocument> GetLastOpenedDocuments()
         {
