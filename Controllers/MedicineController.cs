@@ -21,6 +21,10 @@ namespace MedHelp.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Get all medicines
+        /// </summary>
+        /// <returns>All medicines</returns>
         [HttpGet("[action]")]
         public IEnumerable<string> GetMedicines()
         {

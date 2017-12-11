@@ -18,12 +18,23 @@ namespace MedHelp.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Get all templates
+        /// </summary>
+        /// <returns>
+        /// List with all templates
+        /// </returns>
         [HttpGet("[action]")]
         public IEnumerable<Template> GetTemplates()
         {
             return _context.Templates;
         }
 
+        /// <summary>
+        /// Get specific template by templateId with loaded propertiesss
+        /// </summary>
+        /// <param name="templateId">Needed template id</param>
+        /// <returns>Template</returns>
         [HttpGet("[action]/{templateId}")]
         public Template GetTemplateWithProperties(int templateId)
         {

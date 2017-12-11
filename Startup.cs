@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MedHelp.Data;
@@ -12,6 +13,8 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.PlatformAbstractions;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace MedHelp
 {
@@ -51,6 +54,24 @@ namespace MedHelp
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+            // Register the Swagger generator, defining one or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Title = "MedHelp Api",
+                    Version = "v1",
+                    Description = "Web application for helping doctors to do some monotonous work",
+                    TermsOfService = "None",
+                    Contact = new Contact { Name = "WebProgrammingTask", Url = "https://github.com/WebProgrammingTask/MedHelp" },
+                    License = new License { Name = "MIT", Url = "https://github.com/WebProgrammingTask/MedHelp/blob/master/LICENSE" }
+                });
+                // Set the comments path for the Swagger JSON and UI.
+                var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+                var xmlPath = Path.Combine(basePath, "MedHelp.xml");
+                c.IncludeXmlComments(xmlPath);
+            });
+
             services.AddDbContext<MedHelpContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("MedHelpDatabase")));
         }
@@ -70,6 +91,15 @@ namespace MedHelp
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MedHelp Api V1");
+            });
 
             app.UseStaticFiles();
             app.UseAuthentication();
