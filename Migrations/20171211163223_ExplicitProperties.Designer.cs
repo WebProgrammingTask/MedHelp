@@ -11,9 +11,10 @@ using System;
 namespace MedHelp.Migrations
 {
     [DbContext(typeof(MedHelpContext))]
-    partial class MedHelpContextModelSnapshot : ModelSnapshot
+    [Migration("20171211163223_ExplicitProperties")]
+    partial class ExplicitProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,7 +72,7 @@ namespace MedHelp.Migrations
                     b.Property<int>("PropertyId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("FieldId");
+                    b.Property<int?>("FieldId");
 
                     b.Property<string>("PropertyName");
 
@@ -81,7 +82,7 @@ namespace MedHelp.Migrations
 
                     b.HasIndex("FieldId");
 
-                    b.ToTable("Properties");
+                    b.ToTable("Property");
                 });
 
             modelBuilder.Entity("MedHelp.Models.Template", b =>
@@ -122,10 +123,9 @@ namespace MedHelp.Migrations
 
             modelBuilder.Entity("MedHelp.Models.Property", b =>
                 {
-                    b.HasOne("MedHelp.Models.Field", "Field")
+                    b.HasOne("MedHelp.Models.Field")
                         .WithMany("Properties")
-                        .HasForeignKey("FieldId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("FieldId");
                 });
 #pragma warning restore 612, 618
         }
