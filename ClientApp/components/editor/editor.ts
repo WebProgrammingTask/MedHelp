@@ -48,7 +48,7 @@ export default class Editor extends Vue {
         let self = this;
         EventEmitter.on('model_changed', (value: any) => {
             self.model.medicines = value;
-            self.schema.fields[8].values = self.medicines;
+            self.schema.fields[9].values = self.medicines;
         })
 
 
