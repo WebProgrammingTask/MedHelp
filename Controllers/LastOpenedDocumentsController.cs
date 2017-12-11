@@ -30,7 +30,7 @@ namespace MedHelp.Controllers
         [HttpPost("[action]")]
         public IActionResult InsertNewLastOpenedDocument([FromBody] LastOpenedDocument lastOpenedDocument)
         {
-            if (lastOpenedDocument == null)
+            if (lastOpenedDocument == null || !ModelState.IsValid)
                 return BadRequest();
             try
             {
@@ -38,7 +38,7 @@ namespace MedHelp.Controllers
                 _context.SaveChanges();
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }

@@ -142,9 +142,8 @@ export default class Editor extends Vue {
         newLastOpenedDocument.templateId = this.templateId;
         newLastOpenedDocument.patient = this.model.patientName;
         console.log(JSON.stringify(this.model));
-        ApiService.post('LastOpenedDocuments/InsertNewLastOpenedDocument', {
-            body: newLastOpenedDocument
-        }).then(response => {console.log(response)})
+        ApiService.post('LastOpenedDocuments/InsertNewLastOpenedDocument', newLastOpenedDocument)
+            .then(response => { console.log(response); })
         .catch(e => {
             console.log(e);
         })
