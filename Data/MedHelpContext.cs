@@ -16,14 +16,10 @@ namespace MedHelp.Data
         public DbSet<LastOpenedDocument> LastOpenedDocuments { get; set; }
         public DbSet<Template> Templates { get; set; }
         public DbSet<Medicine> Medicines { get; set; }
-        public DbSet<Complaint> Complaints { get; set; }
         public DbSet<FormModel> FormModels { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ComplaintFormModel>()
-                .HasKey(t => new { t.ComplaintId, t.FormModelId});
-
             modelBuilder.Entity<MedicineFormModel>()
                 .HasKey(t => new {t.MedicineId, t.FormModelId});
             modelBuilder.Entity<FormModel>()

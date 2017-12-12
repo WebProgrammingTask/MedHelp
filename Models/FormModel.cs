@@ -12,7 +12,7 @@ namespace MedHelp.Models
         public DateTime PatientBirthday { get; set; }
         public DateTime VisitDay { get; set; }
         public ICollection<MedicineFormModel> MedicineFormModels{ get;} = new List<MedicineFormModel>();
-        public ICollection<ComplaintFormModel> ComplaintFormModels { get; } = new List<ComplaintFormModel>();
+        public string Complaints { get; set; }
         public LastOpenedDocument LastOpenedDocument{ get; set; }
         public Template Template { get; set; }
         public string Speciality { get; set; }
