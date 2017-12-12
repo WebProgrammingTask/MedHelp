@@ -105,5 +105,34 @@ namespace MedHelp.Controllers
                 } 
             }
         }
+
+        [HttpDelete("[action]/{lastOpenedDocumentId}")]
+        public IActionResult DeleteLastOpenedDocument(int lastOpenedDocumentId)
+        {
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    var document = _context.Medicines.FirstOrDefault(m => m.MedicineId == lastOpenedDocumentId);
+
+                    if (document == null)
+                    {
+                        return NotFound();
+                    }
+
+                    _context.Medicines.Remove(document);
+                    _context.SaveChanges();
+
+                    transaction.Commit();
+
+                    return new NoContentResult();
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError(e, "Can not delete last opened document");
+                    return StatusCode(StatusCodes.Status500InternalServerError);
+                }
+            }
+        }
     }
 }
