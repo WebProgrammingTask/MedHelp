@@ -40,43 +40,69 @@ namespace MedHelp.Controllers
         [HttpPut("[action]/{lastOpenedDocumentId}.{format?}")]
         public IActionResult UpdateDocument(int lastOpenedDocumentId, [FromBody] LastOpenedDocument lastOpenedDocument)
         {
-            if (lastOpenedDocument == null || lastOpenedDocument.LastOpenedDocumentId != lastOpenedDocumentId)
+            if (lastOpenedDocument == null || lastOpenedDocument.LastOpenedDocumentId != lastOpenedDocumentId || !ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            var document = _context.LastOpenedDocuments.Single(d => d.LastOpenedDocumentId == lastOpenedDocumentId);
-
-            if (document == null)
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                return NotFound();
+                try
+                {
+                    var document = _context.LastOpenedDocuments.Single(d => d.LastOpenedDocumentId == lastOpenedDocumentId);
+
+                    if (document == null)
+                    {
+                        return NotFound();
+                    }
+
+                    document.LastOpenedTime = lastOpenedDocument.LastOpenedTime;
+                    document.Patient = lastOpenedDocument.Patient;
+                    document.ModelJson = lastOpenedDocument.ModelJson;
+                    
+                    _context.LastOpenedDocuments.Update(document);
+                    _context.SaveChanges();
+
+                    // Commit transaction if all commands succeed, transaction will auto-rollback
+                    // when disposed if either commands fails
+                    transaction.Commit();
+
+                    return Ok();
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError(e, "Can not update last opened document");
+                    return StatusCode(StatusCodes.Status500InternalServerError);
+                } 
             }
-
-            document.LastOpenedTime = lastOpenedDocument.LastOpenedTime;
-            document.Patient = lastOpenedDocument.Patient;
-            document.ModelJson = lastOpenedDocument.ModelJson;
-
-            _context.LastOpenedDocuments.Update(document);
-            _context.SaveChanges();
-
-            return Ok();
         }
 
         [HttpPost("[action]/{format?}")]
         public IActionResult InsertNewLastOpenedDocument([FromBody]LastOpenedDocument lastOpenedDocument)
         {
             if (lastOpenedDocument == null || !ModelState.IsValid)
+            {
                 return BadRequest();
-            try
-            {
-                _context.LastOpenedDocuments.Add(lastOpenedDocument);
-                _context.SaveChanges();
-                return Ok(lastOpenedDocument.LastOpenedDocumentId);
             }
-            catch (Exception e)
+
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                _logger.LogError(e, "Can not insert new last opened document");
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                try
+                {
+                    _context.LastOpenedDocuments.Add(lastOpenedDocument);
+                    _context.SaveChanges();
+
+                    // Commit transaction if all commands succeed, transaction will auto-rollback
+                    // when disposed if either commands fails
+                    transaction.Commit();
+
+                    return Ok(lastOpenedDocument.LastOpenedDocumentId);
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError(e, "Can not insert new last opened document");
+                    return StatusCode(StatusCodes.Status500InternalServerError);
+                } 
             }
         }
     }
