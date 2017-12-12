@@ -1,4 +1,5 @@
 import { Property } from "./Property";
+import FormModel = MedHelp.Models.FormModel;
 
 export class Template {
     templateId: number;
@@ -7,5 +8,5 @@ export class Template {
     imagePath: string;
     schemeJson: string;
     modelJson: string;
-    properties: Property[];
+    formModel: FormModel;
 }

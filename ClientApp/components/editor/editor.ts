@@ -47,8 +47,13 @@ export default class Editor extends Vue {
             .then(response => {
                 this.template = response.data;
                 if (self.lastOpenedDocumentId == null) {
-                    this.model = JSON.parse(response.data.modelJson);
+                    this.model = response.data.formModel;//JSON.parse(response.data.modelJson);
+                    ApiService.get('Medicines/GetMedicines').then(response =>
+                    {
+                        self.model.medicines = response.data;
+                    });
                 }
+
                 this.schema = JSON.parse(response.data.schemeJson);
                 ApiService.get('medicine/getmedicines')
                     .then(response => {
@@ -81,13 +86,14 @@ export default class Editor extends Vue {
     }
     
     save() {
+        var self = this;
         var newLastOpenedDocument = new LastOpenedDocument();
         newLastOpenedDocument.lastOpenedTime = new Date();
         newLastOpenedDocument.modelJson = JSON.stringify(this.model);
         newLastOpenedDocument.templateId = this.templateId;
         newLastOpenedDocument.patient = this.model.patientName;
         if (this.lastOpenedDocumentId == null) {
-            ApiService.post('LastOpenedDocuments/InsertNewLastOpenedDocument', newLastOpenedDocument)
+            ApiService.post('LastOpenedDocuments/InsertNewLastOpenedDocument')
                 .then(response => {
                     this.$router.replace('editor?lastOpenedDocumentId=' + response.data + "&templateId=" + this.templateId);
                     this.lastOpenedDocumentId = response.data;

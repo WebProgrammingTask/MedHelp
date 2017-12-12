@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
 namespace MedHelp.Models
@@ -9,6 +10,8 @@ namespace MedHelp.Models
         public string Patient { get; set; }
         public DateTime LastOpenedTime { get; set; }
         public int TemplateId { get; set; }
+        [NotMapped]
+        public string ModelJson { get; set; }
         public FormModel FormModel{ get; set; }
         public int FormModelId { get; set; }
         public string UserId { get; set; }

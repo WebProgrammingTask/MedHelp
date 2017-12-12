@@ -61,14 +61,15 @@ namespace MedHelp.Data
                     "Дедуля",
                     "Ребенок, у которого 36.9"
                 };
-                var random = new Random();
-                var lastOpenedDocuments = Enumerable.Range(1, 3).Select(index => new LastOpenedDocument
-                {
-                    Template = templates[index - 1],
-                    Patient = patients[index - 1],
-                    LastOpenedTime = DateTime.Now.AddHours(-random.Next(10))
-                });
-                context.LastOpenedDocuments.AddRange(lastOpenedDocuments);
+                //var random = new Random();
+                //var lastOpenedDocuments = Enumerable.Range(1, 3).Select(index => new LastOpenedDocument
+                //{
+                //    Template = templates[index - 1],
+                //    FormM
+                //    Patient = patients[index - 1],
+                //    LastOpenedTime = DateTime.Now.AddHours(-random.Next(10))
+                //});
+                //context.LastOpenedDocuments.AddRange(lastOpenedDocuments);
 
                 context.SaveChanges();
             }

@@ -10,12 +10,12 @@ namespace MedHelp.Controllers
 {
     //[Authorize]
     [Route("api/[controller]")]
-    public class MedicineController : Controller
+    public class MedicinesController : Controller
     {
         private readonly MedHelpContext _context;
         private readonly ILogger _logger;
 
-        public MedicineController(MedHelpContext context, ILogger<MedicineController> logger)
+        public MedicinesController(MedHelpContext context, ILogger<MedicinesController> logger)
         {
             _context = context;
             _logger = logger;
