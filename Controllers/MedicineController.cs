@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 namespace MedHelp.Controllers
 {
     //[Authorize]
+    [FormatFilter]
     [Route("api/[controller]")]
     public class MedicineController : Controller
     {
@@ -20,11 +21,11 @@ namespace MedHelp.Controllers
             _context = context;
             _logger = logger;
         }
-
-        [HttpGet("[action]")]
+        
+        [HttpGet("[action]/{format?}")]
         public IEnumerable<string> GetMedicines()
         {
-            return _context.Medicines.ToList().Select(m => m.MedicineName).ToList();
+           return _context.Medicines.ToList().Select(m => m.MedicineName).ToList();
         }
     }
 }

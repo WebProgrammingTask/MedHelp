@@ -8,10 +8,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Net.Http.Headers;
 
 namespace MedHelp
 {
@@ -48,8 +50,15 @@ namespace MedHelp
 
             services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 
-            services.AddMvc()
-                .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddMvc(options =>
+                {
+                    options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+                    options.FormatterMappings.SetMediaTypeMappingForFormat
+                        ("xml", MediaTypeHeaderValue.Parse("application/xml"));
+                })
+                .AddJsonOptions(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+                .AddXmlSerializerFormatters();
 
             services.AddDbContext<MedHelpContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("MedHelpDatabase")));

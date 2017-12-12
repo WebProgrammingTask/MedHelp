@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 namespace MedHelp.Controllers
 {
     //[Authorize]
+    [FormatFilter]
     [Route("api/[controller]")]
     public class LastOpenedDocumentsController : Controller
     {
@@ -23,20 +24,20 @@ namespace MedHelp.Controllers
             _logger = logger;
         }
 
-        [HttpGet("[action]")]
+        [HttpGet("[action]/{format?}")]
         public IEnumerable<LastOpenedDocument> GetLastOpenedDocuments()
         {
             return _context.LastOpenedDocuments.OrderByDescending(d => d.LastOpenedTime);
         }
 
 
-        [HttpGet("[action]/{lastOpenedDocumentId}")]
+        [HttpGet("[action]/{lastOpenedDocumentId}.{format?}")]
         public LastOpenedDocument GetLastOpenedDocument(int lastOpenedDocumentId)
         {
             return _context.LastOpenedDocuments.Single(l => l.LastOpenedDocumentId == lastOpenedDocumentId);
         }
 
-        [HttpPut("[action]/{lastOpenedDocumentId}")]
+        [HttpPut("[action]/{lastOpenedDocumentId}.{format?}")]
         public IActionResult UpdateDocument(int lastOpenedDocumentId, [FromBody] LastOpenedDocument lastOpenedDocument)
         {
             if (lastOpenedDocument == null || lastOpenedDocument.LastOpenedDocumentId != lastOpenedDocumentId)
@@ -61,7 +62,7 @@ namespace MedHelp.Controllers
             return Ok();
         }
 
-        [HttpPost("[action]")]
+        [HttpPost("[action]/{format?}")]
         public IActionResult InsertNewLastOpenedDocument([FromBody]LastOpenedDocument lastOpenedDocument)
         {
             if (lastOpenedDocument == null || !ModelState.IsValid)
@@ -71,9 +72,6 @@ namespace MedHelp.Controllers
                 _context.LastOpenedDocuments.Add(lastOpenedDocument);
                 _context.SaveChanges();
                 return Ok(lastOpenedDocument.LastOpenedDocumentId);
-                //CreatedAtRoute("GetLastOpenedDocument",
-                //    new {lastOpenedDocumentId = lastOpenedDocument.LastOpenedDocumentId},
-                //    lastOpenedDocument); //Ok();//CreatedAtRoute("InsertNewLastOpenedDocument", new {Id = lastOpenedDocument.LastOpenedDocumentId}, lastOpenedDocument);
             }
             catch (Exception e)
             {

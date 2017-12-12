@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MedHelp.Controllers
 {
     //[Authorize]
+    [FormatFilter]
     [Route("api/[controller]")]
     public class TemplatesController : Controller
     {
@@ -18,13 +19,13 @@ namespace MedHelp.Controllers
             _context = context;
         }
 
-        [HttpGet("[action]")]
+        [HttpGet("[action]/{format?}")]
         public IEnumerable<Template> GetTemplates()
         {
             return _context.Templates;
         }
 
-        [HttpGet("[action]/{templateId}")]
+        [HttpGet("[action]/{templateId}.{format?}")]
         public Template GetTemplateWithProperties(int templateId)
         {
             var template = _context.Templates.Single(t => t.TemplateId == templateId);
