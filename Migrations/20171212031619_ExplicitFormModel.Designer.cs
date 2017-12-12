@@ -11,9 +11,10 @@ using System;
 namespace MedHelp.Migrations
 {
     [DbContext(typeof(MedHelpContext))]
-    partial class MedHelpContextModelSnapshot : ModelSnapshot
+    [Migration("20171212031619_ExplicitFormModel")]
+    partial class ExplicitFormModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,8 +83,6 @@ namespace MedHelp.Migrations
 
                     b.Property<int>("TemplateId");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("LastOpenedDocumentId");
 
                     b.HasIndex("FormModelId")
@@ -136,8 +135,7 @@ namespace MedHelp.Migrations
 
                     b.HasKey("TemplateId");
 
-                    b.HasIndex("FormModelId")
-                        .IsUnique();
+                    b.HasIndex("FormModelId");
 
                     b.ToTable("Templates");
                 });
@@ -184,8 +182,8 @@ namespace MedHelp.Migrations
             modelBuilder.Entity("MedHelp.Models.Template", b =>
                 {
                     b.HasOne("MedHelp.Models.FormModel", "FormModel")
-                        .WithOne("Template")
-                        .HasForeignKey("MedHelp.Models.Template", "FormModelId")
+                        .WithMany()
+                        .HasForeignKey("FormModelId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

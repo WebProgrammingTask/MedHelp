@@ -36,6 +36,8 @@ namespace MedHelp.Controllers
             return _context.LastOpenedDocuments.Single(l => l.LastOpenedDocumentId == lastOpenedDocumentId);
         }
 
+        //TODO: REMAKE
+
         [HttpPut("[action]/{lastOpenedDocumentId}")]
         public IActionResult UpdateDocument(int lastOpenedDocumentId, [FromBody] LastOpenedDocument lastOpenedDocument)
         {
@@ -53,7 +55,7 @@ namespace MedHelp.Controllers
 
             document.LastOpenedTime = lastOpenedDocument.LastOpenedTime;
             document.Patient = lastOpenedDocument.Patient;
-            document.ModelJson = lastOpenedDocument.ModelJson;
+            //document.ModelJson = lastOpenedDocument.ModelJson;
 
             _context.LastOpenedDocuments.Update(document);
             _context.SaveChanges();

@@ -11,9 +11,10 @@ using System;
 namespace MedHelp.Migrations
 {
     [DbContext(typeof(MedHelpContext))]
-    partial class MedHelpContextModelSnapshot : ModelSnapshot
+    [Migration("20171212032212_ReferenceFix")]
+    partial class ReferenceFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,8 +82,6 @@ namespace MedHelp.Migrations
                     b.Property<string>("Patient");
 
                     b.Property<int>("TemplateId");
-
-                    b.Property<string>("UserId");
 
                     b.HasKey("LastOpenedDocumentId");
 

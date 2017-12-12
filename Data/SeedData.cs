@@ -27,13 +27,14 @@ namespace MedHelp.Data
 
                 };
                 context.Medicines.AddRange(medicines.Select(m => new Medicine{MedicineName = m}));
-
+            
+                
                 var templates = new[]{
                     new Template
                     {
                         Name = "Справка о приеме",
                         SchemeJson = @"{""fields"":[{""type"":""submit"",""buttonText"":""Сохранить""},{""type"":""input"",""inputType"":""text"",""model"":""patientName"",""label"":""ФИО пацента"",""placeholder"":""Введите сюда имя пациента""},{""type"":""dateTimePicker"",""label"":""Дата рождения пациента"",""model"":""patientBirthday"",""dateTimePickerOptions"":{""format"":""YYYY-MM-DD""}},{""type"":""dateTimePicker"",""label"":""Дата посещения"",""model"":""visitDay"",""dateTimePickerOptions"":{""format"":""YYYY-MM-DD""}},{""type"":""input"",""inputType"":""text"",""model"":""speciality"",""label"":""Специальность""},{""type"":""input"",""inputType"":""text"",""model"":""doctorName"",""label"":""Имя доктора""},{""type"":""textArea"",""model"":""complaints"",""label"":""Жалобы"",""rows"":5},{""type"":""textArea"",""model"":""anammnesis"",""label"":""Анамнез"",""rows"":5},{""type"":""textArea"",""model"":""recommended"",""label"":""Рекомендации"",""rows"":5},{""type"":""vueMultiSelect"",""label"":""Лекарства"",""placeholder"":""Пожалуйста, выберите лекарства"",""values"":[],""selectOptions"":{""multiple"":true,""hideselected"":true,""multiSelect"":true,""closeOnSelect"":true,""showLabels"":false,""searchable"":true,""taggable"":true,""limit"":10}},{""type"":""submit"",""buttonText"":""Сохранить""}]}",
-                        ModelJson = @"{""patientName"":"""",""patientBirthday"":""2017-12-10T23:29:08.947Z"",""visitDay"":""2017-12-10T23:29:08.947Z"",""medicines"":""[]"",""speciality"":"""",""doctorName"":"""",""complaints"":"""",""anammnesis"":"""",""recommended"":""""}",
+                        FormModel = new FormModel(),
                         Description = "Самая обычная справка о приеме какая только может быть",
                         ImagePath = "https://doc-rf.com/templates/SYNERGY-CP1251/images/sprav/ych/doc.jpg"
                     },
@@ -41,12 +42,14 @@ namespace MedHelp.Data
                     {
                         Name = "Направление на анализы",
                         //Description = "Куда сказано, туда и иди",
+                        FormModel = new FormModel(),
                         Description = "Без анализов тут не обойтись", 
                         ImagePath = "http://mediaspravka.ru/photos/15_1.jpg"
                     },
                     new Template
                     {
                         Name = "Направление к другому врачу",
+                        FormModel = new FormModel(),
                         //Description = "Ну, в этой ситуации я как бы уже это... Мои полномочия уже как бы всё... Окончены!",
                         Description = "Такого я ещё не видел. Пусть мои коллеги посмотрят",
                         ImagePath = "https://i.imgur.com/AoSVPpc.png"
